@@ -1,0 +1,10 @@
+Holberton stories — a tiny tale
+Unicode check: café, naïve, résumé.
+Python is fun, but persistence is key.
+We read, we write, we test.
+Empty lines matter too.
+
+C is fast; Python is friendly.
+JSON saves our state.
+Command-line args go here.
+End of file.

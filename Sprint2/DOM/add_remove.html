@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <ul id="list">
+      <li>Item 1</li>
+    </ul>
+    <button id="add">Add Item</button>
+    <button id="remove">Remove Last</button>
+
+    <script>
+      const list = document.querySelector('#list');
+      const addBtn = document.querySelector('#add');
+      const remBtn = document.querySelector('#remove');
+      let count = 1;
+
+      addBtn.addEventListener('click', () => {
+        count++;
+        const li = document.createElement('li');
+        li.textContent = `Item ${count}`;
+        list.appendChild(li);
+      });
+
+      remBtn.addEventListener('click', () => {
+        const last = list.lastElementChild;
+        if (last) last.remove();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>DOM Basics</title>
+    <style>
+      body { font-family: sans-serif; }
+      h1 { color: black; transition: color 0.5s; }
+    </style>
+  </head>
+  <body>
+    <h1 id="main-title">Hello DOM!</h1>
+    <button id="color-btn">Turn Purple</button>
+
+    <script>
+      const title = document.querySelector('#main-title');
+      const button = document.getElementById('color-btn');
+
+      // Modify style via JS
+      button.addEventListener('click', () => {
+        title.style.color = '#9333EA';
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>{{ title or "SSR + DOM Demo" }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { font: 16px/1.4 system-ui, sans-serif; margin: 2rem auto; max-width: 720px; }
+    header { display: flex; justify-content: space-between; align-items: center; }
+    ul { list-style: none; padding: 0; }
+    li { display: flex; gap: .75rem; align-items: center; padding: .5rem 0; border-bottom: 1px solid #eee; }
+    li.done .text { text-decoration: line-through; color: #888; }
+    button, input[type="submit"] { cursor: pointer; }
+    .row { display: flex; gap: .5rem; margin: .75rem 0; }
+    .grow { flex: 1; }
+  </style>
+</head>
+<body>
+  {% block body %}{% endblock %}
+  <script src="{{ url_for('static', filename='app.js') }}" defer></script>
+</body>
+</html>

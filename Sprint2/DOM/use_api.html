@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <script>
+      let correctAnswer = '';
+
+      document.addEventListener('DOMContentLoaded', () => {
+
+        fetch('https://hellosalut.stefanbohacek.com/?lang=fr')
+          .then(response => response.json())
+          .then(data => {
+            correctAnswer = data.hello;
+          })
+          .catch(() => {
+            document.getElementById('result').textContent = 'Error loading the API';
+          });
+
+        // Check user's answer when button is clicked
+        document.getElementById('check-btn').addEventListener('click', checkAnswer);
+        
+        // Allow Enter key to submit
+        document.getElementById('user-input').addEventListener('keypress', (e) => {
+          if (e.key === 'Enter') checkAnswer();
+        });
+      });
+
+      function checkAnswer() {
+        const userAnswer = document.getElementById('user-input').value.trim();
+        const resultDiv = document.getElementById('result');
+
+        if (!userAnswer) {
+          resultDiv.textContent = 'Please enter an answer!';
+          resultDiv.className = 'result';
+          return;
+        }
+
+        if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+          resultDiv.textContent = `✓ Correct! The answer is "${correctAnswer}"`;
+          resultDiv.className = 'result correct';
+        } else {
+          resultDiv.textContent = `✗ Incorrect. You said "${userAnswer}", but the correct answer is "${correctAnswer}"`;
+          resultDiv.className = 'result incorrect';
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h3>How do you say "Hello" in French?</h3>
+    <input type="text" id="user-input" placeholder="Type your answer...">
+    <button id="check-btn">Check Answer</button>
+    <div id="result" class="result"></div>
+  </body>
+</html>

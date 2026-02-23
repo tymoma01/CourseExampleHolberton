@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <input id="input" placeholder="Type something..." />
+    <p id="output"></p>
+
+    <script>
+      const input = document.querySelector('#input');
+      const output = document.querySelector('#output');
+
+      input.addEventListener('input', () => {
+        output.textContent = `You typed: ${input.value}`;
+      });
+    </script>
+  </body>
+</html>

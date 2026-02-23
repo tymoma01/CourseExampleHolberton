@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <p id="text">Original content.</p>
+    <button id="update-btn">Change Content</button>
+
+    <script>
+      const p = document.querySelector('#text');
+      const btn = document.querySelector('#update-btn');
+
+      btn.addEventListener('click', () => {
+        p.textContent = 'This paragraph has been updated!';
+      });
+    </script>
+  </body>
+</html>

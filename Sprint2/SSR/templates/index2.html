@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block body %}
+<header>
+  <h1>Todos</h1>
+  <form id="add-form" class="row" action="{{ url_for('add_todo') }}" method="post">
+    <input class="grow" type="text" name="text" placeholder="Add a task…" required />
+    <input type="submit" value="Add" />
+  </form>
+</header>
+
+<ul id="list">
+  {# Server-Side Rendered initial items #}
+  {% for t in todos %}
+    <li data-id="{{ t.id }}" class="{{ 'done' if t.done }}">
+      <input type="checkbox" class="toggle" {% if t.done %}checked{% endif %} />
+      <span class="text">{{ t.text }}</span>
+      <button class="del" type="button" aria-label="Delete">🗑️</button>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
