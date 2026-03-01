@@ -1,7 +1,13 @@
+CREATE TABLE student (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_name VARCHAR(100)
+);
+
 CREATE TABLE courses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     course_name VARCHAR(100)
 );
+
 
 CREATE TABLE enrollments (
     student_id INT,
@@ -10,16 +16,23 @@ CREATE TABLE enrollments (
     FOREIGN KEY (course_id) REFERENCES courses(id)
 );
 
+
 INSERT INTO courses (course_name)
 VALUES ('Math'), ('Science');
 
 INSERT INTO enrollments (student_id, course_id)
-VALUES (1, 1), (2, 2), (1, 2);
+VALUES (2, 1), (1, 2), (1, 2);
+
+
+
+
+
 
 
 
 SELECT students.name, courses.course_name
 FROM students
+
 JOIN enrollments ON students.id = enrollments.student_id
 JOIN courses ON courses.id = enrollments.course_id;
 

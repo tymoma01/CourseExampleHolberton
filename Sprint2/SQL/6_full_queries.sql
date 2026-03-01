@@ -17,23 +17,7 @@ LEFT JOIN tv_show_ratings r ON r.show_id = s.id
 GROUP BY g.name, s.title
 HAVING rnk <= 3
 
-ORDER BY g.name, rnk, total_rating DESC;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ORDER BY g.name, rnk, total_rating DESC; 
 
 
 
@@ -43,6 +27,8 @@ FROM tv_shows s
 WHERE EXISTS (
   SELECT * FROM tv_show_ratings r WHERE r.show_id = s.id
 );
+
+-- JOIN tv_show_ratings as r on r.show_id = s.id
 
 
 
