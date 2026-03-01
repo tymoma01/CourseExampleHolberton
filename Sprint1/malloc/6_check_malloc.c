@@ -1,5 +1,4 @@
 // malloc() can return NULL — it is not guaranteed to succeed.
-// This example deliberately exhausts memory to show that scenario.
 
 // How it works:
 //   - INT_MAX is the largest possible int (~2 GB on most systems).

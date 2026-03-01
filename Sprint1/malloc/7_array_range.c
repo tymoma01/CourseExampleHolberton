@@ -1,4 +1,3 @@
-//
 // a function allocates heap memory and returns the pointer to the caller.
 
 // The caller now OWNS the memory and is responsible for calling free().
@@ -25,7 +24,7 @@ int *array_range(int min, int max)
     }
 
 	len = max - min + 1;
-	a = malloc((unsigned int)len * sizeof(int));
+	a = malloc((int)len * sizeof(int));
 
 	if (!a){                // always check malloc's return value
 		return (NULL);
@@ -34,23 +33,10 @@ int *array_range(int min, int max)
 	for (i = 0; i < len; i++){
         a[i] = min + i;
     }
-    free(a);    
+
+    // free(a);
 	return (a); 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // free(a) is called BEFORE return(a).

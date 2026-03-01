@@ -15,13 +15,14 @@ int main(void){
 
     n = 5;
 
-    arr = malloc(n * sizeof(char)); // allocate 5 bytes on the heap
+    arr = malloc(n * sizeof(char)); // allocate 5 * 4 bytes on the heap
 
     arr[0] = 'a';
     arr[1] = 'b';
     arr[2] = 'c';
     arr[3] = 'd';
     arr[4] = 'e';
+    arr[5] = '\0';
     // no '\0' at arr[5] -> printf("%s") is undefined behavior here
     // printf("%s") reads past the allocated memory -> undefined behavior.
 

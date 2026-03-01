@@ -5,11 +5,11 @@
 //      if you forget #include <stdlib.h>, the compiler (in C89) assumes malloc
 //      returns int. Without the cast it warns you; with the cast it silently
 //      produces wrong code on 64-bit systems where sizeof(int) != sizeof(void*).
-// 
+
 //   2. Use sizeof(*arr) instead of sizeof(int).
 //      If you later change the type of arr (e.g. to long*), sizeof(*arr)
 //      updates automatically — one less place to forget to change.
-// 
+
 //   3. Always check the return value of malloc before using the pointer.
 //      perror() prints the system error message to stderr.
 
@@ -18,9 +18,10 @@
 
 int main(void)
 {
-    int *arr;
+    char *arr;
 
     arr = malloc(5 * sizeof(*arr)); // no cast, sizeof(*arr) adapts to the type
+
     if (!arr)
     {
         perror("malloc failed");
@@ -28,7 +29,7 @@ int main(void)
     }
 
     for (int i = 0; i < 5; i++){
-        arr[i] = i * 10;
+        arr[i] = 'a';
     }
 
     for (int i = 0; i < 5; i++){

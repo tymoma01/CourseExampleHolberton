@@ -1,20 +1,3 @@
-/*
-** CALLER'S RESPONSIBILITY — FREEING MEMORY RETURNED BY A FUNCTION
-**
-** This is the counterpart to 7_array_range.c.
-** It shows the caller side of the ownership pattern:
-**   - Call a function that returns heap-allocated memory.
-**   - Always check for NULL before using the pointer.
-**   - Free the memory when done — even though it was allocated elsewhere.
-**
-** The golden rule: whoever calls malloc (directly or indirectly) must
-** ensure that free() is called exactly once for each allocation, on
-** every exit path (including error paths).
-**
-** Note: because of the bug in 7_array_range.c (free before return),
-** this program actually accesses freed memory. Running it under
-** valgrind or AddressSanitizer (-fsanitize=address) will catch this.
-*/
 #include "main.h"
 #include <stdio.h>
 #include <stdlib.h>

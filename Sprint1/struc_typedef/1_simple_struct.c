@@ -4,12 +4,20 @@ struct user {
     char *name;
     unsigned int age;
     unsigned int id;
+    char *mail;
 };
+
+// -> Object Oriented Programming (see in Sprint 2)
 
 void print_user(struct user u)
 {
     printf("[print_user] %s (%u years) — id=%u\n", u.name, u.age, u.id);
 }
+
+
+
+
+
 
 int main(void)
 {
@@ -19,7 +27,6 @@ int main(void)
     u.age = 25;
     u.id = 1;
 
-    // printf("User: name=%s, age=%u, id=%u\n", u.name, u.age, u.id);
     print_user(u); 
     return (0);
 }
