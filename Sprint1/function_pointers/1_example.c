@@ -1,4 +1,3 @@
-/* swap_behavior.c */
 #include <stdio.h>
 
 void wave(void){
