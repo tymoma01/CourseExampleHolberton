@@ -13,7 +13,7 @@ int main(void){
     act = wave; // first assignment - wave or &wave are equivalent (a function decays to its address)
     act();
     
-    act = beep; // second assignment
+    act = &beep; // second assignment
     act();
 
     return 0;

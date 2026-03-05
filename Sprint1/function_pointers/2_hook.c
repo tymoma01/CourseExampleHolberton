@@ -12,12 +12,12 @@ int main(void){
     void (*on_digit)(char) = show_digit; // pointer initialized to show_digit — can be swapped later
     void (*on_other)(char) = show_other; // pointer initialized to show_other
 
-    for (const char *p = s; *p; p++){    // walk through each character of the string
-        if (*p >= ‘0’ && *p <= ‘9’) {
-            on_digit(*p);                // call the function pointed to by on_digit
+    for (const char *p = s; *p; p++){ // walk through each character of the string
+        if (*p >= '0' && *p <= '9') {
+            on_digit(*p); // call the function pointed to by on_digit
         }
         else {
-            on_other(*p);               // call the function pointed to by on_other
+            on_other(*p); // call the function pointed to by on_other
         }
     }
     return 0;

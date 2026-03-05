@@ -4,7 +4,8 @@
 void closed(char evt);
 void open(char evt);
 
-typedef void (*state_f)(char evt); // define a type alias for the function pointer — easier to read
+// define a type alias for the function pointer — easier to read
+typedef void (*state_f)(char evt); 
 
 // global variable — holds the current state as a function pointer
 // adding static would restrict it to this file
@@ -13,7 +14,7 @@ state_f current;
 void closed(char evt){
     puts("state=CLOSED");
     if (evt=='o') {
-        current = open;  // transition: event 'o' moves us to the open state
+        current = open; // transition: event 'o' moves us to the open state
     }
 }
 
@@ -26,9 +27,10 @@ void open(char evt){
 
 int main(void){
     current = closed; // initial state — the pointer is assigned, not called
-    current('o');     // calls closed('o') — prints state, then transitions to open
-    current('x');     // calls open('x')   — prints state, no transition ('x' is not handled)
-    current('c');     // calls open('c')   — prints state, then transitions back to closed
+    current('o'); // calls closed('o') — prints state, then transitions to open
+    current('x'); // calls open('x') — prints state, no transition ('x' is not handled)
+    current('c'); // calls open('c') — prints state, then transitions back to closed
+    printf("final state=%s\n", current == open ? "open" : "closed");
     return 0;
 }
 

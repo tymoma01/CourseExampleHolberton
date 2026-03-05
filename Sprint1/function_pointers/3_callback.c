@@ -9,8 +9,8 @@ void print_double(int x)
     printf("%d\n", x * 2);
 }
 
-void apply(int *arr, int n, void (*fn)(int)) 
 // fn is a function pointer — it will be called for each element
+void apply(int *arr, int n, void (*fn)(int)) 
 {
     for (int i = 0; i < n; i++)
     {
