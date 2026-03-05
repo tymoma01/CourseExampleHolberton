@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Development — Choose Your Course</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --ink: #1a1410;
+      --muted: #7a6f63;
+      --border: #d9d0c4;
+      --html-accent: #d4470f;
+      --css-accent: #2a5f8f;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 32px 60px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .lesson-count {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 60px;
+      text-align: center;
+    }
+
+    .hero-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(48px, 8vw, 100px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+    }
+
+    h1 em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 440px;
+      line-height: 1.7;
+      margin-bottom: 72px;
+    }
+
+    /* ── COURSE CARDS ── */
+    .courses {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      width: 100%;
+      max-width: 1000px;
+      border: 1px solid var(--border);
+    }
+
+    .course-card {
+      display: block;
+      text-decoration: none;
+      color: var(--ink);
+      padding: 52px 48px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+      border-right: 1px solid var(--border);
+    }
+
+    .course-card:last-child { border-right: none; }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .course-card.html::before { background: var(--html-accent); }
+    .course-card.css::before  { background: var(--css-accent); }
+
+    .course-card:hover::before { opacity: 1; }
+    .course-card:hover { color: white; }
+    .course-card:hover .course-num  { color: rgba(255,255,255,0.4); }
+    .course-card:hover .course-desc { color: rgba(255,255,255,0.7); }
+    .course-card:hover .course-tags span { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); }
+    .course-card:hover .arrow { transform: translate(4px, -4px); }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .course-num {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 20px;
+      transition: color 0.3s;
+    }
+
+    .course-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .course-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 32px;
+      max-width: 300px;
+      transition: color 0.3s;
+    }
+
+    .course-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .course-tags span {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      padding: 5px 10px;
+      background: rgba(0,0,0,0.06);
+      color: var(--muted);
+      transition: all 0.3s;
+    }
+
+    .course-cta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+
+    .arrow {
+      font-size: 18px;
+      transition: transform 0.3s;
+      display: inline-block;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 32px 60px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 700px) {
+      header { padding: 24px 28px; }
+      .hero { padding: 60px 28px; }
+      .courses { grid-template-columns: 1fr; }
+      .course-card { border-right: none; border-bottom: 1px solid var(--border); }
+      .course-card:last-child { border-bottom: none; }
+      footer { padding: 24px 28px; flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <span class="logo">WEB DEV · COURSES</span>
+    <span class="lesson-count">2 MODULES AVAILABLE</span>
+  </header>
+
+  <main class="hero">
+    <p class="hero-label">Lesson Series</p>
+    <h1>Learn the<br><em>foundations</em><br>of the Web</h1>
+    <p class="hero-sub">Two essential courses covering the building blocks of every website. Start with structure, then move to style.</p>
+
+    <div class="courses">
+
+      <a href="html-course.html" class="course-card html">
+        <div class="card-inner">
+          <div class="course-num">LESSON 01</div>
+          <div class="course-title">HTML</div>
+          <p class="course-desc">Elements, semantics, and the anatomy of a web page. Learn to structure content the right way.</p>
+          <div class="course-tags">
+            <span>ELEMENTS</span>
+            <span>SEMANTICS</span>
+            <span>STRUCTURE</span>
+            <span>ACCESSIBILITY</span>
+          </div>
+          <div class="course-cta">
+            START LESSON <span class="arrow">↗</span>
+          </div>
+        </div>
+      </a>
+
+      <a href="css-course.html" class="course-card css">
+        <div class="card-inner">
+          <div class="course-num">LESSON 02</div>
+          <div class="course-title">CSS</div>
+          <p class="course-desc">Selectors, the box model, specificity, and layout. Make your HTML look exactly the way you want.</p>
+          <div class="course-tags">
+            <span>SELECTORS</span>
+            <span>BOX MODEL</span>
+            <span>SPECIFICITY</span>
+            <span>LAYOUT</span>
+          </div>
+          <div class="course-cta">
+            START LESSON <span class="arrow">↗</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <footer>
+    <span class="footer-note">HTML IS STRUCTURE · CSS IS STYLE</span>
+    <span class="footer-note">© 2025</span>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS — Cascading Style Sheets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f0f4f8;
+      --ink: #0d1b2a;
+      --accent: #2a5f8f;
+      --accent2: #d4470f;
+      --muted: #5a6e7f;
+      --card-bg: #ffffff;
+      --border: #c8d6e0;
+      --code-bg: #0d1b2a;
+      --code-fg: #7dd3fc;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .hero-right {
+      background: var(--ink);
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '{ }';
+      position: absolute;
+      font-family: 'DM Mono', monospace;
+      font-size: 220px;
+      color: rgba(255,255,255,0.04);
+      right: -20px;
+      bottom: -20px;
+      line-height: 1;
+    }
+
+    .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(48px, 7vw, 90px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 400px;
+      line-height: 1.7;
+    }
+
+    .hero-desc strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .code-preview {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.6);
+      position: relative;
+      z-index: 1;
+    }
+
+    .code-preview .selector { color: #7dd3fc; }
+    .code-preview .prop     { color: #88d4ab; }
+    .code-preview .val      { color: #f08080; }
+    .code-preview .comment  { color: rgba(255,255,255,0.3); font-style: italic; }
+    .code-preview .punc     { color: rgba(255,255,255,0.5); }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover { background: #1e4e78; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+    /* ── STRIP ── */
+    .strip {
+      background: var(--accent);
+      color: white;
+      padding: 12px 0;
+      overflow: hidden;
+    }
+    .strip-inner {
+      display: flex;
+      gap: 40px;
+      animation: ticker 25s linear infinite;
+      white-space: nowrap;
+    }
+    .strip-inner span {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 60px;
+    }
+
+    /* ── SYNTAX ANATOMY ── */
+    .anatomy {
+      background: var(--ink);
+      padding: 100px 0;
+    }
+
+    .anatomy-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+
+    .anatomy h2 { color: white; }
+    .anatomy .section-label { color: #7dd3fc; }
+
+    .anatomy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .syntax-visual {
+      font-family: 'DM Mono', monospace;
+      font-size: 15px;
+      line-height: 2.2;
+      position: relative;
+    }
+
+    .s-selector {
+      color: #7dd3fc;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .s-selector:hover, .s-selector[data-active] { background: rgba(125,211,252,0.2); }
+
+    .s-prop {
+      color: #88d4ab;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .s-prop:hover, .s-prop[data-active] { background: rgba(136,212,171,0.2); }
+
+    .s-val {
+      color: #f08080;
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .s-val:hover, .s-val[data-active] { background: rgba(240,128,128,0.2); }
+
+    .s-punc { color: rgba(255,255,255,0.4); }
+
+    .detail-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 32px;
+      min-height: 240px;
+    }
+
+    .detail-card h3 {
+      font-family: 'DM Mono', monospace;
+      font-size: 18px;
+      color: #7dd3fc;
+      margin-bottom: 16px;
+    }
+
+    .detail-card p {
+      color: rgba(255,255,255,0.7);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .tip {
+      display: flex;
+      gap: 8px;
+      background: rgba(136,212,171,0.1);
+      border-left: 2px solid #88d4ab;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #88d4ab;
+    }
+
+    .warn {
+      display: flex;
+      gap: 8px;
+      background: rgba(240,128,128,0.1);
+      border-left: 2px solid #f08080;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #f08080;
+    }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      padding: 14px 24px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all 0.2s;
+      white-space: nowrap;
+      margin-bottom: -1px;
+    }
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── PROPERTY CARDS ── */
+    .prop-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .prop-card {
+      background: var(--card-bg);
+      padding: 32px;
+      transition: all 0.2s;
+    }
+
+    .prop-card:hover {
+      background: var(--ink);
+      color: white;
+    }
+
+    .prop-card:hover .prop-name { color: #7dd3fc; }
+    .prop-card:hover .prop-desc { color: rgba(255,255,255,0.6); }
+    .prop-card:hover .prop-type { color: rgba(255,255,255,0.3); }
+
+    .prop-name {
+      font-family: 'DM Mono', monospace;
+      font-size: 18px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+
+    .prop-title {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .prop-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      transition: color 0.2s;
+    }
+
+    .prop-type {
+      margin-top: 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--border);
+      transition: color 0.2s;
+    }
+
+    /* ── CODE BLOCK ── */
+    .code-block {
+      background: var(--code-bg);
+      padding: 32px;
+      position: relative;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .code-block .c-sel     { color: #7dd3fc; }
+    .code-block .c-prop    { color: #88d4ab; }
+    .code-block .c-val     { color: #f08080; }
+    .code-block .c-comment { color: rgba(255,255,255,0.3); font-style: italic; }
+    .code-block .c-num     { color: #f5c842; }
+
+    .copy-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+
+    /* ── SPECIFICITY VISUAL ── */
+    .specificity-section {
+      background: var(--ink);
+      padding: 100px 0;
+    }
+    .specificity-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+    .specificity-inner h2 { color: white; }
+    .specificity-inner .section-label { color: #7dd3fc; }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 48px;
+    }
+
+    .spec-col {
+      padding: 40px 32px;
+      background: rgba(255,255,255,0.04);
+      text-align: center;
+    }
+
+    .spec-col-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    .spec-col-score {
+      font-family: 'Fraunces', serif;
+      font-size: 72px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .spec-col:nth-child(1) .spec-col-score { color: #f08080; }
+    .spec-col:nth-child(2) .spec-col-score { color: #f5c842; }
+    .spec-col:nth-child(3) .spec-col-score { color: #88d4ab; }
+
+    .spec-col-example {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.7;
+    }
+
+    .spec-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .spec-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: 16px;
+      align-items: center;
+      padding: 16px 24px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+    }
+
+    .spec-row-selector { color: #7dd3fc; }
+    .spec-row-id    { color: #f08080; min-width: 36px; text-align: center; }
+    .spec-row-class { color: #f5c842; min-width: 36px; text-align: center; }
+    .spec-row-type  { color: #88d4ab; min-width: 36px; text-align: center; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .footer-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 60px 32px; }
+      .section { padding: 60px 32px; }
+      .anatomy-grid { grid-template-columns: 1fr; }
+      .anatomy-inner, .specificity-inner { padding: 0 32px; }
+      .spec-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 16px; padding: 40px 32px; }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in:nth-child(3) { animation-delay: 0.3s; }
+    .fade-in:nth-child(4) { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <a href="index.html" class="back-link fade-in">← ALL COURSES</a>
+    <p class="label fade-in">Web Development · Lesson 02</p>
+    <h1 class="fade-in">CSS<br><em style="font-style:italic;color:var(--muted)">Cascading</em><br>Style<br>Sheets</h1>
+    <p class="hero-desc fade-in">CSS selects HTML elements and applies styles. It controls <strong>color</strong>, <strong>layout</strong>, <strong>spacing</strong>, and everything you see on the screen.</p>
+    <div class="hero-cta fade-in">
+      <button class="btn btn-primary" onclick="document.getElementById('learn').scrollIntoView({behavior:'smooth'})">Start Learning →</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="code-preview">
+      <div class="comment">/* Selecting an element */</div>
+      <div><span class="selector">h1</span> <span class="punc">{</span></div>
+      <div>&nbsp;&nbsp;<span class="prop">color</span><span class="punc">:</span> <span class="val">#2a5f8f</span><span class="punc">;</span></div>
+      <div>&nbsp;&nbsp;<span class="prop">font-size</span><span class="punc">:</span> <span class="val">2rem</span><span class="punc">;</span></div>
+      <div><span class="punc">}</span></div>
+      <br>
+      <div class="comment">/* Selecting by class */</div>
+      <div><span class="selector">.card</span> <span class="punc">{</span></div>
+      <div>&nbsp;&nbsp;<span class="prop">background</span><span class="punc">:</span> <span class="val">white</span><span class="punc">;</span></div>
+      <div>&nbsp;&nbsp;<span class="prop">padding</span><span class="punc">:</span> <span class="val">1.5rem</span><span class="punc">;</span></div>
+      <div>&nbsp;&nbsp;<span class="prop">border-radius</span><span class="punc">:</span> <span class="val">8px</span><span class="punc">;</span></div>
+      <div><span class="punc">}</span></div>
+      <br>
+      <div class="comment">/* Pseudo-class on hover */</div>
+      <div><span class="selector">a:hover</span> <span class="punc">{</span></div>
+      <div>&nbsp;&nbsp;<span class="prop">text-decoration</span><span class="punc">:</span> <span class="val">underline</span><span class="punc">;</span></div>
+      <div><span class="punc">}</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="strip">
+  <div class="strip-inner" id="ticker"></div>
+</div>
+
+<!-- SYNTAX ANATOMY -->
+<section class="anatomy">
+  <div class="anatomy-inner">
+    <p class="section-label">Foundation</p>
+    <h2>Anatomy of a Rule</h2>
+    <div class="anatomy-grid">
+      <div class="syntax-visual">
+        <div style="color:rgba(255,255,255,0.3); font-size:12px; margin-bottom:16px;">Click any part to learn more</div>
+        <div>
+          <span class="s-selector" onclick="showSyntaxDetail('selector')">h1</span>
+          <span class="s-punc">,</span>
+          <span class="s-selector" onclick="showSyntaxDetail('selector')">.title</span>
+          <span style="color:rgba(255,255,255,0.3); font-size:12px; margin-left:8px;">← selector</span>
+        </div>
+        <div><span class="s-punc">{</span></div>
+        <div style="margin-left:32px;">
+          <span class="s-prop" onclick="showSyntaxDetail('property')">color</span>
+          <span class="s-punc">:</span>
+          <span class="s-val" onclick="showSyntaxDetail('value')">blue</span>
+          <span class="s-punc">;</span>
+          <span style="color:rgba(255,255,255,0.3); font-size:12px; margin-left:8px;">← declaration</span>
+        </div>
+        <div style="margin-left:32px;">
+          <span class="s-prop" onclick="showSyntaxDetail('property')">font-size</span>
+          <span class="s-punc">:</span>
+          <span class="s-val" onclick="showSyntaxDetail('value')">2rem</span>
+          <span class="s-punc">;</span>
+        </div>
+        <div style="margin-left:32px;">
+          <span class="s-prop" onclick="showSyntaxDetail('property')">margin</span>
+          <span class="s-punc">:</span>
+          <span class="s-val" onclick="showSyntaxDetail('value')">0 auto</span>
+          <span class="s-punc">;</span>
+        </div>
+        <div><span class="s-punc">}</span></div>
+        <br>
+        <div style="font-size:12px; color:rgba(255,255,255,0.3); line-height:1.8;">
+          <span style="color:#7dd3fc;">■</span> selector &nbsp;
+          <span style="color:#88d4ab;">■</span> property &nbsp;
+          <span style="color:#f08080;">■</span> value
+        </div>
+      </div>
+
+      <div id="syntax-detail" class="detail-card">
+        <h3 id="sd-title">Selector</h3>
+        <p id="sd-desc">A selector targets the HTML element(s) you want to style. It can be a tag name, a class, an ID, an attribute, or a combination of these.</p>
+        <div id="sd-note" class="tip">💡 Use classes (.my-class) over IDs (#my-id) for maximum reusability — IDs must be unique per page.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<section id="learn">
+  <div class="section">
+    <p class="section-label">The Properties</p>
+    <h2>Core CSS Concepts</h2>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('selectors', this)">Selectors</button>
+      <button class="tab-btn" onclick="switchTab('boxmodel', this)">Box Model</button>
+      <button class="tab-btn" onclick="switchTab('typography', this)">Typography</button>
+      <button class="tab-btn" onclick="switchTab('visual', this)">Visual & Effects</button>
+    </div>
+
+    <!-- SELECTORS TAB -->
+    <div id="tab-selectors" class="tab-panel active">
+      <div class="prop-grid">
+        <div class="prop-card">
+          <div class="prop-name">element</div>
+          <div class="prop-title">Type Selector</div>
+          <div class="prop-desc">Targets all instances of an HTML tag. e.g. <code>p { }</code> styles every paragraph on the page.</div>
+          <div class="prop-type">Specificity: 0-0-1</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">.class</div>
+          <div class="prop-title">Class Selector</div>
+          <div class="prop-desc">Targets all elements with a given class attribute. Reusable — the preferred way to style in modern CSS.</div>
+          <div class="prop-type">Specificity: 0-1-0</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">#id</div>
+          <div class="prop-title">ID Selector</div>
+          <div class="prop-desc">Targets a single unique element. Very high specificity — use sparingly and prefer classes instead.</div>
+          <div class="prop-type">Specificity: 1-0-0</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">*</div>
+          <div class="prop-title">Universal Selector</div>
+          <div class="prop-desc">Targets every element on the page. Often used in resets: <code>* { box-sizing: border-box; }</code></div>
+          <div class="prop-type">Specificity: 0-0-0</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">:hover</div>
+          <div class="prop-title">Pseudo-class</div>
+          <div class="prop-desc">Targets an element in a specific state. Common: :hover, :focus, :visited, :nth-child(). Remember LVHA order for links.</div>
+          <div class="prop-type">Specificity: 0-1-0</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">::before</div>
+          <div class="prop-title">Pseudo-element</div>
+          <div class="prop-desc">Targets a specific part of an element. Uses double colon (::). Common: ::before, ::after, ::first-letter.</div>
+          <div class="prop-type">Specificity: 0-0-1</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">A &gt; B</div>
+          <div class="prop-title">Child Combinator</div>
+          <div class="prop-desc">Targets B only when it is a direct child of A. More specific than the descendant combinator (space).</div>
+          <div class="prop-type">Combinator</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">[attr]</div>
+          <div class="prop-title">Attribute Selector</div>
+          <div class="prop-desc">Targets elements with a given attribute. e.g. <code>a[href^="#"]</code> targets all internal anchor links.</div>
+          <div class="prop-type">Specificity: 0-1-0</div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:40px;">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+        <pre><span class="c-comment">/* Type, class, and ID selectors */</span>
+<span class="c-sel">p</span>         { <span class="c-prop">color</span>: <span class="c-val">black</span>; }     <span class="c-comment">/* 0-0-1 */</span>
+<span class="c-sel">.card</span>     { <span class="c-prop">padding</span>: <span class="c-val">1rem</span>; }  <span class="c-comment">/* 0-1-0 */</span>
+<span class="c-sel">#hero</span>     { <span class="c-prop">height</span>: <span class="c-val">100vh</span>; } <span class="c-comment">/* 1-0-0 */</span>
+
+<span class="c-comment">/* Combinators */</span>
+<span class="c-sel">nav a</span>     { <span class="c-prop">color</span>: <span class="c-val">white</span>; }    <span class="c-comment">/* descendant */</span>
+<span class="c-sel">ul > li</span>   { <span class="c-prop">list-style</span>: <span class="c-val">none</span>; } <span class="c-comment">/* direct child */</span>
+<span class="c-sel">h2 + p</span>   { <span class="c-prop">margin-top</span>: <span class="c-val">0</span>; }   <span class="c-comment">/* adjacent sibling */</span>
+
+<span class="c-comment">/* Pseudo-classes — LVHA order for links */</span>
+<span class="c-sel">a:link</span>    { <span class="c-prop">color</span>: <span class="c-val">blue</span>; }
+<span class="c-sel">a:visited</span> { <span class="c-prop">color</span>: <span class="c-val">purple</span>; }
+<span class="c-sel">a:hover</span>   { <span class="c-prop">text-decoration</span>: <span class="c-val">underline</span>; }
+<span class="c-sel">a:active</span>  { <span class="c-prop">color</span>: <span class="c-val">red</span>; }</pre>
+      </div>
+    </div>
+
+    <!-- BOX MODEL TAB -->
+    <div id="tab-boxmodel" class="tab-panel">
+      <div style="background:white; border:1px solid var(--border); padding:40px; margin-bottom:40px;">
+        <p style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.15em; color:var(--muted); margin-bottom:24px;">THE BOX MODEL</p>
+        <div style="background:#fdebd0; border:2px dashed #e59866; padding:8px; text-align:center;">
+          <div style="font-family:'DM Mono',monospace; font-size:11px; color:#e59866; margin-bottom:8px;">MARGIN</div>
+          <div style="background:#d5f5e3; border:2px dashed #58d68d; padding:8px;">
+            <div style="font-family:'DM Mono',monospace; font-size:11px; color:#58d68d; margin-bottom:8px;">BORDER</div>
+            <div style="background:#d6eaf8; border:2px dashed #5dade2; padding:8px;">
+              <div style="font-family:'DM Mono',monospace; font-size:11px; color:#5dade2; margin-bottom:8px;">PADDING</div>
+              <div style="background:white; border:2px dashed #aaa; padding:20px; text-align:center;">
+                <span style="font-family:'DM Mono',monospace; font-size:13px; color:#333;">CONTENT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prop-grid">
+        <div class="prop-card">
+          <div class="prop-name">margin</div>
+          <div class="prop-title">Margin</div>
+          <div class="prop-desc">Space outside the border. Pushes other elements away. Margins can collapse between adjacent elements.</div>
+          <div class="prop-type">Box Model · Outside</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">padding</div>
+          <div class="prop-title">Padding</div>
+          <div class="prop-desc">Space between the content and the border. Always takes the background color of the element.</div>
+          <div class="prop-type">Box Model · Inside</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">border</div>
+          <div class="prop-title">Border</div>
+          <div class="prop-desc">The line around an element. Shorthand: border: 2px solid red. Use border-radius to round corners.</div>
+          <div class="prop-type">Box Model · Edge</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">box-sizing</div>
+          <div class="prop-title">Box Sizing</div>
+          <div class="prop-desc">Controls how width/height are calculated. Use border-box so padding and border are included in the declared width.</div>
+          <div class="prop-type">Box Model · Critical</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">width / height</div>
+          <div class="prop-title">Dimensions</div>
+          <div class="prop-desc">Sets the size of an element's content area. Use max-width, min-width for responsive layouts.</div>
+          <div class="prop-type">Box Model · Size</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">display</div>
+          <div class="prop-title">Display</div>
+          <div class="prop-desc">Controls how an element is rendered. Key values: block, inline, inline-block, flex, grid, none.</div>
+          <div class="prop-type">Layout · Critical</div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:40px;">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+        <pre><span class="c-comment">/* Best practice reset */</span>
+<span class="c-sel">*, *::before, *::after</span> {
+  <span class="c-prop">box-sizing</span>: <span class="c-val">border-box</span>;
+}
+
+<span class="c-sel">.card</span> {
+  <span class="c-prop">width</span>: <span class="c-val">300px</span>;
+  <span class="c-prop">padding</span>: <span class="c-val">1.5rem</span>;       <span class="c-comment">/* inside space */</span>
+  <span class="c-prop">margin</span>: <span class="c-val">0 auto</span>;       <span class="c-comment">/* centered horizontally */</span>
+  <span class="c-prop">border</span>: <span class="c-val">1px solid #ccc</span>;
+  <span class="c-prop">border-radius</span>: <span class="c-val">8px</span>;
+}
+
+<span class="c-comment">/* With border-box: total width = 300px */</span>
+<span class="c-comment">/* Without it:      total width = 300 + padding + border */</span></pre>
+      </div>
+    </div>
+
+    <!-- TYPOGRAPHY TAB -->
+    <div id="tab-typography" class="tab-panel">
+      <div class="prop-grid">
+        <div class="prop-card">
+          <div class="prop-name">color</div>
+          <div class="prop-title">Color</div>
+          <div class="prop-desc">Sets text color. Accepts named colors, hex (#ff0000), rgb(), hsl(), or CSS variables.</div>
+          <div class="prop-type">Typography</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">font-size</div>
+          <div class="prop-title">Font Size</div>
+          <div class="prop-desc">Sets text size. Prefer rem (relative to root) over px for accessibility. 1rem = 16px by default.</div>
+          <div class="prop-type">Typography · Size</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">font-weight</div>
+          <div class="prop-title">Font Weight</div>
+          <div class="prop-desc">Controls text boldness. Values: 100–900 or keywords (normal = 400, bold = 700).</div>
+          <div class="prop-type">Typography</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">line-height</div>
+          <div class="prop-title">Line Height</div>
+          <div class="prop-desc">Space between lines. Use unitless values (e.g. 1.5). Minimum 1.5 recommended for body text accessibility.</div>
+          <div class="prop-type">Typography · Accessibility</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">text-align</div>
+          <div class="prop-title">Text Align</div>
+          <div class="prop-desc">Horizontal alignment of text within a block element. Values: left, center, right, justify.</div>
+          <div class="prop-type">Typography · Layout</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">letter-spacing</div>
+          <div class="prop-title">Letter Spacing</div>
+          <div class="prop-desc">Space between characters. Useful for headings, monospace labels, and ALL CAPS text.</div>
+          <div class="prop-type">Typography</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">text-transform</div>
+          <div class="prop-title">Text Transform</div>
+          <div class="prop-desc">Changes text casing without modifying the HTML. Values: uppercase, lowercase, capitalize.</div>
+          <div class="prop-type">Typography</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">--var</div>
+          <div class="prop-title">CSS Variables</div>
+          <div class="prop-desc">Custom properties defined with -- prefix. Declared on :root for global scope, used with var(--name).</div>
+          <div class="prop-type">Variables</div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:40px;">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+        <pre><span class="c-comment">/* CSS variables on :root */</span>
+<span class="c-sel">:root</span> {
+  <span class="c-prop">--color-primary</span>: <span class="c-val">#2a5f8f</span>;
+  <span class="c-prop">--font-size-base</span>: <span class="c-val">1rem</span>;
+}
+
+<span class="c-sel">body</span> {
+  <span class="c-prop">font-size</span>: <span class="c-val">var(--font-size-base)</span>;
+  <span class="c-prop">line-height</span>: <span class="c-val">1.6</span>;       <span class="c-comment">/* unitless — scales with font */</span>
+  <span class="c-prop">color</span>: <span class="c-val">#1a1410</span>;
+}
+
+<span class="c-sel">h1</span> {
+  <span class="c-prop">font-size</span>: <span class="c-val">2.5rem</span>;
+  <span class="c-prop">font-weight</span>: <span class="c-val">700</span>;
+  <span class="c-prop">letter-spacing</span>: <span class="c-val">-0.02em</span>;
+  <span class="c-prop">text-transform</span>: <span class="c-val">uppercase</span>;
+  <span class="c-prop">color</span>: <span class="c-val">var(--color-primary)</span>;
+}</pre>
+      </div>
+    </div>
+
+    <!-- VISUAL TAB -->
+    <div id="tab-visual" class="tab-panel">
+      <div class="prop-grid">
+        <div class="prop-card">
+          <div class="prop-name">background</div>
+          <div class="prop-title">Background</div>
+          <div class="prop-desc">Sets element background. Accepts colors, images, or gradients: linear-gradient(to right, red, blue).</div>
+          <div class="prop-type">Visual</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">position</div>
+          <div class="prop-title">Position</div>
+          <div class="prop-desc">Controls placement. Values: static (default), relative, absolute, fixed, sticky. Use with top/right/bottom/left.</div>
+          <div class="prop-type">Layout · Position</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">transform</div>
+          <div class="prop-title">Transform</div>
+          <div class="prop-desc">Visually moves, scales, rotates, or skews an element. Does not affect document flow. GPU-accelerated.</div>
+          <div class="prop-type">Visual · Animation</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">animation</div>
+          <div class="prop-title">Animation</div>
+          <div class="prop-desc">Shorthand for CSS keyframe animations. Requires @keyframes rule. animation-name and animation-duration are required.</div>
+          <div class="prop-type">Visual · Animation</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">opacity</div>
+          <div class="prop-title">Opacity</div>
+          <div class="prop-desc">Sets element transparency from 0 (invisible) to 1 (fully visible). Affects the element and all its children.</div>
+          <div class="prop-type">Visual</div>
+        </div>
+        <div class="prop-card">
+          <div class="prop-name">box-shadow</div>
+          <div class="prop-title">Box Shadow</div>
+          <div class="prop-desc">Adds shadow effects around an element. Syntax: offset-x offset-y blur spread color. Use multiple shadows separated by commas.</div>
+          <div class="prop-type">Visual · Effect</div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:40px;">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+        <pre><span class="c-comment">/* Positioning */</span>
+<span class="c-sel">.parent</span> { <span class="c-prop">position</span>: <span class="c-val">relative</span>; }
+<span class="c-sel">.child</span>  { <span class="c-prop">position</span>: <span class="c-val">absolute</span>; <span class="c-prop">top</span>: <span class="c-val">0</span>; <span class="c-prop">right</span>: <span class="c-val">0</span>; }
+
+<span class="c-comment">/* Transforms */</span>
+<span class="c-sel">.card:hover</span> {
+  <span class="c-prop">transform</span>: <span class="c-val">translateY(-4px) scale(1.02)</span>;
+}
+
+<span class="c-comment">/* CSS animation with @keyframes */</span>
+<span class="c-sel">@keyframes</span> fadeIn {
+  <span class="c-prop">from</span> { <span class="c-prop">opacity</span>: <span class="c-val">0</span>; <span class="c-prop">transform</span>: <span class="c-val">translateY(20px)</span>; }
+  <span class="c-prop">to</span>   { <span class="c-prop">opacity</span>: <span class="c-val">1</span>; <span class="c-prop">transform</span>: <span class="c-val">translateY(0)</span>; }
+}
+
+<span class="c-sel">.hero</span> {
+  <span class="c-prop">animation</span>: <span class="c-val">fadeIn 0.6s ease forwards</span>;
+}</pre>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SPECIFICITY -->
+<section class="specificity-section">
+  <div class="specificity-inner">
+    <p class="section-label">Key Concept</p>
+    <h2>Specificity</h2>
+
+    <div class="spec-grid">
+      <div class="spec-col">
+        <div class="spec-col-label">ID COLUMN</div>
+        <div class="spec-col-score">1</div>
+        <div class="spec-col-example">
+          #myId { }<br>→ weight 1-0-0<br><br>
+          Highest weight.<br>Beats any class or type.
+        </div>
+      </div>
+      <div class="spec-col">
+        <div class="spec-col-label">CLASS COLUMN</div>
+        <div class="spec-col-score">0-1</div>
+        <div class="spec-col-example">
+          .myClass { }<br>:hover { }<br>[attr] { }<br>→ weight 0-1-0
+        </div>
+      </div>
+      <div class="spec-col">
+        <div class="spec-col-label">TYPE COLUMN</div>
+        <div class="spec-col-score">0-0-1</div>
+        <div class="spec-col-example">
+          p { }<br>h1 { }<br>::before { }<br>→ weight 0-0-1
+        </div>
+      </div>
+    </div>
+
+    <div class="spec-rows">
+      <div style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.15em; color:rgba(255,255,255,0.3); display:grid; grid-template-columns:1fr auto auto auto; gap:16px; padding:0 24px; margin-bottom:4px;">
+        <span>SELECTOR</span>
+        <span style="min-width:36px; text-align:center;">ID</span>
+        <span style="min-width:36px; text-align:center;">CLASS</span>
+        <span style="min-width:36px; text-align:center;">TYPE</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-row-selector">p</span>
+        <span class="spec-row-id">0</span>
+        <span class="spec-row-class">0</span>
+        <span class="spec-row-type">1</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-row-selector">.card</span>
+        <span class="spec-row-id">0</span>
+        <span class="spec-row-class">1</span>
+        <span class="spec-row-type">0</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-row-selector">.card p</span>
+        <span class="spec-row-id">0</span>
+        <span class="spec-row-class">1</span>
+        <span class="spec-row-type">1</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-row-selector">#hero</span>
+        <span class="spec-row-id">1</span>
+        <span class="spec-row-class">0</span>
+        <span class="spec-row-type">0</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-row-selector">#hero .title</span>
+        <span class="spec-row-id">1</span>
+        <span class="spec-row-class">1</span>
+        <span class="spec-row-type">0</span>
+      </div>
+      <div class="spec-row">
+        <span class="spec-row-selector">style="…" (inline)</span>
+        <span class="spec-row-id" style="color:#f08080; font-weight:500;">1</span>
+        <span class="spec-row-class" style="color:#f08080; font-weight:500;">0</span>
+        <span class="spec-row-type" style="color:#f08080; font-weight:500;">0-0</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">CSS · Lesson 02</div>
+  <div class="footer-note">SELECT · DECLARE · CASCADE · © 2025</div>
+</footer>
+
+<script>
+  // TICKER
+  const props = ['color','font-size','margin','padding','border','display','position','transform','background','animation','opacity','box-shadow','letter-spacing','line-height','font-weight','text-align','flex','grid','z-index','transition'];
+  const ticker = document.getElementById('ticker');
+  const doubled = [...props, ...props];
+  ticker.innerHTML = doubled.map(p => `<span>${p}</span>`).join('');
+
+  // SYNTAX DETAIL
+  const syntaxDetails = {
+    selector: {
+      title: 'Selector',
+      desc: 'A selector targets the HTML element(s) you want to style. It can be a tag name (h1), class (.card), ID (#hero), or more complex combinations.',
+      note: 'tip',
+      text: '💡 Prefer classes (.my-class) over IDs — IDs must be unique per page, classes can be reused everywhere.'
+    },
+    property: {
+      title: 'Property',
+      desc: 'A CSS property is the characteristic you want to change — color, font-size, margin, display, etc. Properties are case-insensitive and hyphenated.',
+      note: 'tip',
+      text: '💡 Each property accepts only specific value types. Check MDN if a value has no effect — you may have a typo or unsupported value.'
+    },
+    value: {
+      title: 'Value',
+      desc: 'The value defines what you want to set the property to. Values can be keywords (red, bold), numbers with units (2rem, 100%), or functions (rgb(), var()).',
+      note: 'warn',
+      text: '⚠️ An unrecognised value silently fails — the browser ignores the whole declaration and moves on. Always validate your CSS.'
+    }
+  };
+
+  function showSyntaxDetail(key) {
+    const d = syntaxDetails[key];
+    document.getElementById('sd-title').textContent = d.title;
+    document.getElementById('sd-desc').textContent = d.desc;
+    const note = document.getElementById('sd-note');
+    note.className = d.note;
+    note.innerHTML = d.text;
+  }
+
+  // TABS
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // COPY
+  function copyCode(btn) {
+    const text = btn.nextElementSibling.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'COPIED!';
+      setTimeout(() => btn.textContent = 'COPY', 2000);
+    });
+  }
+</script>
+</body>
+</html>

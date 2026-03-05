@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML — Elements of a Web Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,700;1,300&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f0e8;
+      --ink: #1a1410;
+      --accent: #d4470f;
+      --accent2: #2a5f8f;
+      --muted: #7a6f63;
+      --tag-bg: #1a1410;
+      --tag-fg: #f5f0e8;
+      --card-bg: #ffffff;
+      --border: #d9d0c4;
+      --code-bg: #1a1410;
+      --code-fg: #f5c842;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      text-decoration: none;
+      margin-bottom: 32px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .hero-right {
+      background: var(--ink);
+      padding: 80px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-right::before {
+      content: '</>';
+      position: absolute;
+      font-family: 'DM Mono', monospace;
+      font-size: 220px;
+      color: rgba(255,255,255,0.04);
+      right: -30px;
+      bottom: -20px;
+      line-height: 1;
+    }
+
+    .label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 24px;
+    }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(48px, 7vw, 90px);
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      margin-bottom: 32px;
+    }
+
+    .hero-desc {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 400px;
+      line-height: 1.7;
+    }
+
+    .hero-desc strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .code-preview {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.6);
+      position: relative;
+      z-index: 1;
+    }
+
+    .code-preview .tag { color: #f5c842; }
+    .code-preview .attr { color: #88d4ab; }
+    .code-preview .val { color: #f08080; }
+    .code-preview .comment { color: rgba(255,255,255,0.3); font-style: italic; }
+    .code-preview .text { color: rgba(255,255,255,0.85); }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+    }
+    .btn-primary:hover { background: #b83c0c; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+    /* ── STRIP ── */
+    .strip {
+      background: var(--accent);
+      color: white;
+      padding: 12px 0;
+      overflow: hidden;
+    }
+    .strip-inner {
+      display: flex;
+      gap: 40px;
+      animation: ticker 20s linear infinite;
+      white-space: nowrap;
+    }
+    .strip-inner span {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      opacity: 0.9;
+      flex-shrink: 0;
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTION ── */
+    .section {
+      padding: 100px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    h2 {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(32px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin-bottom: 60px;
+    }
+
+    /* ── ANATOMY ── */
+    .anatomy {
+      background: var(--ink);
+      padding: 100px 0;
+    }
+
+    .anatomy-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+
+    .anatomy h2 { color: white; }
+    .anatomy .section-label { color: #f5c842; }
+
+    .anatomy-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .anatomy-visual {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      line-height: 2;
+    }
+
+    .anatomy-tag {
+      display: inline-block;
+      background: rgba(245,200,66,0.15);
+      border: 1px solid rgba(245,200,66,0.3);
+      color: #f5c842;
+      padding: 2px 8px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+    }
+    .anatomy-tag:hover {
+      background: rgba(245,200,66,0.3);
+    }
+    .anatomy-tag[data-active="true"] {
+      background: #f5c842;
+      color: var(--ink);
+    }
+
+    .anatomy-info {
+      color: rgba(255,255,255,0.5);
+    }
+
+    .anatomy-details {
+      color: white;
+    }
+
+    .detail-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 32px;
+      min-height: 260px;
+    }
+
+    .detail-card h3 {
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      color: #f5c842;
+      margin-bottom: 16px;
+    }
+
+    .detail-card p {
+      color: rgba(255,255,255,0.7);
+      font-size: 15px;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .tip {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: rgba(136,212,171,0.1);
+      border-left: 2px solid #88d4ab;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #88d4ab;
+      margin-top: 8px;
+    }
+
+    .warn {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: rgba(240,128,128,0.1);
+      border-left: 2px solid #f08080;
+      padding: 12px 14px;
+      font-size: 13px;
+      color: #f08080;
+      margin-top: 8px;
+    }
+
+    /* ── ELEMENTS GRID ── */
+    .elements-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .el-card {
+      background: var(--card-bg);
+      padding: 32px;
+      transition: all 0.2s;
+      cursor: default;
+    }
+
+    .el-card:hover {
+      background: var(--ink);
+      color: white;
+    }
+
+    .el-card:hover .el-tag { color: #f5c842; border-color: rgba(245,200,66,0.4); }
+    .el-card:hover .el-desc { color: rgba(255,255,255,0.6); }
+    .el-card:hover .el-type { color: rgba(255,255,255,0.4); }
+
+    .el-tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 20px;
+      color: var(--accent);
+      margin-bottom: 8px;
+      transition: color 0.2s;
+    }
+
+    .el-name {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .el-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+      transition: color 0.2s;
+    }
+
+    .el-type {
+      margin-top: 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--border);
+      transition: color 0.2s;
+    }
+
+    /* ── TABS ── */
+    .tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      padding: 14px 24px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all 0.2s;
+      white-space: nowrap;
+      margin-bottom: -1px;
+    }
+
+    .tab-btn:hover { color: var(--ink); }
+    .tab-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── CODE BLOCK ── */
+    .code-block {
+      background: var(--code-bg);
+      padding: 32px;
+      position: relative;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.75);
+    }
+
+    .code-block .c-tag { color: #f5c842; }
+    .code-block .c-attr { color: #88d4ab; }
+    .code-block .c-val { color: #f08080; }
+    .code-block .c-comment { color: rgba(255,255,255,0.3); font-style: italic; }
+    .code-block .c-text { color: rgba(255,255,255,0.9); }
+
+    .copy-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.5);
+      border: none;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.2); color: white; }
+
+    /* ── RESOURCES ── */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .res-card {
+      border: 1px solid var(--border);
+      padding: 28px;
+      text-decoration: none;
+      color: var(--ink);
+      transition: all 0.2s;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .res-card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+
+    .res-card:hover::before { transform: scaleX(1); }
+    .res-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.08); }
+
+    .res-icon {
+      font-size: 28px;
+      margin-bottom: 16px;
+    }
+
+    .res-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .res-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .res-arrow {
+      margin-top: 20px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ── QUIZ ── */
+    .quiz-section {
+      background: var(--ink);
+      padding: 100px 0;
+    }
+
+    .quiz-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 0 60px;
+    }
+
+    .quiz-inner h2 { color: white; }
+    .quiz-inner .section-label { color: #f5c842; }
+
+    .quiz-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 40px;
+      margin-top: 40px;
+    }
+
+    .quiz-q {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      color: white;
+      margin-bottom: 32px;
+      line-height: 1.4;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quiz-opt {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.7);
+      padding: 16px 20px;
+      text-align: left;
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 0;
+    }
+
+    .quiz-opt:hover { background: rgba(255,255,255,0.1); color: white; }
+    .quiz-opt.correct { background: rgba(136,212,171,0.2); border-color: #88d4ab; color: #88d4ab; }
+    .quiz-opt.wrong { background: rgba(240,128,128,0.2); border-color: #f08080; color: #f08080; }
+
+    .quiz-feedback {
+      margin-top: 24px;
+      padding: 16px 20px;
+      font-size: 14px;
+      display: none;
+    }
+
+    .quiz-feedback.show { display: block; }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 32px;
+    }
+
+    .quiz-progress {
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      font-family: 'Fraunces', serif;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    .footer-note {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-right { display: none; }
+      .hero-left { padding: 60px 32px; }
+      .section { padding: 60px 32px; }
+      .anatomy-grid { grid-template-columns: 1fr; }
+      .anatomy-inner { padding: 0 32px; }
+      .resources-grid { grid-template-columns: 1fr; }
+      .quiz-inner { padding: 0 32px; }
+      footer { flex-direction: column; gap: 16px; padding: 40px 32px; }
+    }
+
+    /* ── ANIMATIONS ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.2s; }
+    .fade-in:nth-child(3) { animation-delay: 0.3s; }
+    .fade-in:nth-child(4) { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <a href="index.html" class="back-link fade-in">← ALL COURSES</a>
+    <p class="label fade-in">Web Development · Lesson 01</p>
+    <h1 class="fade-in">HTML<br><em style="font-style:italic;color:var(--muted)">Elements</em><br>of a<br>Web Page</h1>
+    <p class="hero-desc fade-in">HTML is about <strong>content</strong>. CSS is about look and feel. Together they form every page on the web — and it all starts here.</p>
+    <div class="hero-cta fade-in">
+      <button class="btn btn-primary" onclick="document.getElementById('learn').scrollIntoView({behavior:'smooth'})">Start Learning →</button>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="code-preview">
+      <div class="comment">&lt;!-- A complete HTML page --&gt;</div>
+      <div><span class="tag">&lt;!DOCTYPE</span> <span class="attr">html</span><span class="tag">&gt;</span></div>
+      <div><span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="val">"en"</span><span class="tag">&gt;</span></div>
+      <div>&nbsp;&nbsp;<span class="tag">&lt;head&gt;</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="val">"UTF-8"</span><span class="tag">&gt;</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;title&gt;</span><span class="text">My Page</span><span class="tag">&lt;/title&gt;</span></div>
+      <div>&nbsp;&nbsp;<span class="tag">&lt;/head&gt;</span></div>
+      <div>&nbsp;&nbsp;<span class="tag">&lt;body&gt;</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;header&gt;</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;h1&gt;</span><span class="text">Hello, World!</span><span class="tag">&lt;/h1&gt;</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/header&gt;</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;main&gt;</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;p&gt;</span><span class="text">This is HTML.</span><span class="tag">&lt;/p&gt;</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/main&gt;</span></div>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;footer&gt;</span><span class="text">...</span><span class="tag">&lt;/footer&gt;</span></div>
+      <div>&nbsp;&nbsp;<span class="tag">&lt;/body&gt;</span></div>
+      <div><span class="tag">&lt;/html&gt;</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="strip">
+  <div class="strip-inner" id="ticker"></div>
+</div>
+
+<!-- ANATOMY SECTION -->
+<section class="anatomy">
+  <div class="anatomy-inner">
+    <p class="section-label">Foundation</p>
+    <h2>Anatomy of a Page</h2>
+    <div class="anatomy-grid">
+      <div class="anatomy-visual">
+        <div style="color:rgba(255,255,255,0.3); margin-bottom: 8px;">&lt;!DOCTYPE html&gt;</div>
+        <div><span class="anatomy-tag" onclick="showDetail('html')" id="tag-html">&lt;html&gt;</span></div>
+        <div style="margin-left: 24px;">
+          <span class="anatomy-tag" onclick="showDetail('head')" id="tag-head">&lt;head&gt;</span>
+          <div style="margin-left: 24px; color: rgba(255,255,255,0.35); font-size:12px;">
+            &lt;title&gt; &lt;meta&gt; &lt;link&gt;
+          </div>
+          <span style="color:#f5c842;">&lt;/head&gt;</span>
+        </div>
+        <div style="margin-left: 24px; margin-top: 4px;">
+          <span class="anatomy-tag" onclick="showDetail('body')" id="tag-body">&lt;body&gt;</span>
+          <div style="margin-left: 24px;">
+            <span class="anatomy-tag" onclick="showDetail('header')" id="tag-header">&lt;header&gt;</span>
+            <span style="color:rgba(255,255,255,0.3); font-size:11px; margin-left:8px;">logo, nav</span>
+          </div>
+          <div style="margin-left: 24px; margin-top: 4px;">
+            <span class="anatomy-tag" onclick="showDetail('main')" id="tag-main">&lt;main&gt;</span>
+            <span style="color:rgba(255,255,255,0.3); font-size:11px; margin-left:8px;">your content</span>
+          </div>
+          <div style="margin-left: 24px; margin-top: 4px;">
+            <span class="anatomy-tag" onclick="showDetail('footer')" id="tag-footer">&lt;footer&gt;</span>
+            <span style="color:rgba(255,255,255,0.3); font-size:11px; margin-left:8px;">copyright, links</span>
+          </div>
+          <span style="color:#f5c842;">&lt;/body&gt;</span>
+        </div>
+        <div><span style="color:#f5c842;">&lt;/html&gt;</span></div>
+        <div style="margin-top:24px; font-size:11px; color:rgba(255,255,255,0.3);">
+          ↑ Click any tag to learn more
+        </div>
+      </div>
+
+      <div id="detail-box" class="detail-card">
+        <h3 id="d-tag">&lt;html&gt;</h3>
+        <p id="d-desc">The root element. Every HTML page is wrapped inside this tag. It tells the browser that the document is HTML and contains all other elements.</p>
+        <div id="d-note" class="tip">💡 Always include the <strong>lang</strong> attribute for accessibility — e.g., &lt;html lang="en"&gt;</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELEMENTS SECTION -->
+<section id="learn">
+  <div class="section">
+    <p class="section-label">The Elements</p>
+    <h2>Core HTML Tags</h2>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('structure', this)">Structure</button>
+      <button class="tab-btn" onclick="switchTab('text', this)">Text & Content</button>
+      <button class="tab-btn" onclick="switchTab('media', this)">Media & Links</button>
+      <button class="tab-btn" onclick="switchTab('forms', this)">Forms & Tables</button>
+    </div>
+
+    <!-- STRUCTURE TAB -->
+    <div id="tab-structure" class="tab-panel active">
+      <div class="elements-grid">
+        <div class="el-card">
+          <div class="el-tag">&lt;header&gt;</div>
+          <div class="el-name">Header</div>
+          <div class="el-desc">The top of a page or section. Usually contains logo, navigation, and search. Consistent across all pages.</div>
+          <div class="el-type">Block · Semantic</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;nav&gt;</div>
+          <div class="el-name">Navigation</div>
+          <div class="el-desc">A structural element with navigation links. Used for menus, breadcrumbs, and page navigation.</div>
+          <div class="el-type">Block · Semantic</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;main&gt;</div>
+          <div class="el-name">Main</div>
+          <div class="el-desc">The primary content of the page. Should appear only once per page and never inside header, footer, or nav.</div>
+          <div class="el-type">Block · Semantic</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;section&gt;</div>
+          <div class="el-name">Section</div>
+          <div class="el-desc">Groups related content together. Usually contains its own heading. Think of it as a chapter of your page.</div>
+          <div class="el-type">Block · Semantic</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;article&gt;</div>
+          <div class="el-name">Article</div>
+          <div class="el-desc">Self-contained content that could stand alone: blog posts, news articles, product cards, forum posts.</div>
+          <div class="el-type">Block · Semantic</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;aside&gt;</div>
+          <div class="el-name">Aside</div>
+          <div class="el-desc">Content related to but separate from the main content. Sidebars, pull quotes, related links.</div>
+          <div class="el-type">Block · Semantic</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;footer&gt;</div>
+          <div class="el-name">Footer</div>
+          <div class="el-desc">The bottom of a page or section. Contains copyright info, secondary navigation, social links.</div>
+          <div class="el-type">Block · Semantic</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;div&gt;</div>
+          <div class="el-name">Division</div>
+          <div class="el-desc">A generic block-level container. Use it only when no semantic element fits. No inherent meaning.</div>
+          <div class="el-type">Block · Generic</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;span&gt;</div>
+          <div class="el-name">Span</div>
+          <div class="el-desc">A generic inline container. Used to style a portion of text without adding semantic meaning. Use sparingly.</div>
+          <div class="el-type">Inline · Generic</div>
+        </div>
+      </div>
+
+      <div class="code-block" style="margin-top:40px;">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+        <pre><span class="c-tag">&lt;body&gt;</span>
+  <span class="c-tag">&lt;header&gt;</span>
+    <span class="c-tag">&lt;nav&gt;</span><span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-val">"/"</span><span class="c-tag">&gt;</span><span class="c-text">Home</span><span class="c-tag">&lt;/a&gt;&lt;/nav&gt;</span>
+  <span class="c-tag">&lt;/header&gt;</span>
+
+  <span class="c-tag">&lt;main&gt;</span>
+    <span class="c-tag">&lt;section&gt;</span>
+      <span class="c-tag">&lt;article&gt;</span>
+        <span class="c-tag">&lt;h2&gt;</span><span class="c-text">My Post Title</span><span class="c-tag">&lt;/h2&gt;</span>
+        <span class="c-tag">&lt;p&gt;</span><span class="c-text">Content goes here.</span><span class="c-tag">&lt;/p&gt;</span>
+      <span class="c-tag">&lt;/article&gt;</span>
+    <span class="c-tag">&lt;/section&gt;</span>
+    <span class="c-tag">&lt;aside&gt;</span><span class="c-text">Related content</span><span class="c-tag">&lt;/aside&gt;</span>
+  <span class="c-tag">&lt;/main&gt;</span>
+
+  <span class="c-tag">&lt;footer&gt;</span><span class="c-text">© 2025 My Website</span><span class="c-tag">&lt;/footer&gt;</span>
+<span class="c-tag">&lt;/body&gt;</span></pre>
+      </div>
+    </div>
+
+    <!-- TEXT TAB -->
+    <div id="tab-text" class="tab-panel">
+      <div class="elements-grid">
+        <div class="el-card">
+          <div class="el-tag">&lt;h1&gt;–&lt;h6&gt;</div>
+          <div class="el-name">Headings</div>
+          <div class="el-desc">Six levels of headings. Always use in order — never skip from h1 to h4. One h1 per page maximum.</div>
+          <div class="el-type">Block · Heading</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;p&gt;</div>
+          <div class="el-name">Paragraph</div>
+          <div class="el-desc">A block of text that forms a paragraph. Only use for actual paragraph content, not as a generic container.</div>
+          <div class="el-type">Block · Text</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;strong&gt;</div>
+          <div class="el-name">Strong</div>
+          <div class="el-desc">Indicates strong importance. Semantically meaningful — not just for making text bold visually.</div>
+          <div class="el-type">Inline · Text</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;em&gt;</div>
+          <div class="el-name">Emphasis</div>
+          <div class="el-desc">Indicates stress emphasis. Changes meaning: "I <em>love</em> HTML" vs "I love <em>HTML</em>".</div>
+          <div class="el-type">Inline · Text</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;ul&gt; / &lt;ol&gt;</div>
+          <div class="el-name">Lists</div>
+          <div class="el-desc">Unordered (bullets) or ordered (numbered). Always use &lt;li&gt; inside. Can be nested.</div>
+          <div class="el-type">Block · List</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;blockquote&gt;</div>
+          <div class="el-name">Blockquote</div>
+          <div class="el-desc">Multi-line quotes from external sources. Use the cite attribute to reference the source URL.</div>
+          <div class="el-type">Block · Quote</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;code&gt;</div>
+          <div class="el-name">Code</div>
+          <div class="el-desc">Inline fragment of computer code. For blocks of code, wrap &lt;code&gt; inside a &lt;pre&gt; element.</div>
+          <div class="el-type">Inline · Text</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;mark&gt;</div>
+          <div class="el-name">Mark</div>
+          <div class="el-desc">Highlighted or marked text. Used to indicate relevance or search results on a page.</div>
+          <div class="el-type">Inline · Text</div>
+        </div>
+      </div>
+      <div class="code-block" style="margin-top:40px;">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+        <pre><span class="c-tag">&lt;h1&gt;</span><span class="c-text">Page Title</span><span class="c-tag">&lt;/h1&gt;</span>
+<span class="c-tag">&lt;h2&gt;</span><span class="c-text">Section Title</span><span class="c-tag">&lt;/h2&gt;</span>
+
+<span class="c-tag">&lt;p&gt;</span><span class="c-text">This is a paragraph with </span><span class="c-tag">&lt;strong&gt;</span><span class="c-text">important text</span><span class="c-tag">&lt;/strong&gt;</span>
+<span class="c-text">and </span><span class="c-tag">&lt;em&gt;</span><span class="c-text">emphasized words</span><span class="c-tag">&lt;/em&gt;</span><span class="c-text">.</span><span class="c-tag">&lt;/p&gt;</span>
+
+<span class="c-tag">&lt;ul&gt;</span>
+  <span class="c-tag">&lt;li&gt;</span><span class="c-text">First item</span><span class="c-tag">&lt;/li&gt;</span>
+  <span class="c-tag">&lt;li&gt;</span><span class="c-text">Second item</span><span class="c-tag">&lt;/li&gt;</span>
+<span class="c-tag">&lt;/ul&gt;</span>
+
+<span class="c-tag">&lt;blockquote</span> <span class="c-attr">cite</span>=<span class="c-val">"https://example.com"</span><span class="c-tag">&gt;</span>
+  <span class="c-text">A famous quote from somewhere.</span>
+<span class="c-tag">&lt;/blockquote&gt;</span></pre>
+      </div>
+    </div>
+
+    <!-- MEDIA TAB -->
+    <div id="tab-media" class="tab-panel">
+      <div class="elements-grid">
+        <div class="el-card">
+          <div class="el-tag">&lt;a&gt;</div>
+          <div class="el-name">Anchor / Link</div>
+          <div class="el-desc">Creates hyperlinks. Use href for destination. Add rel="noopener" when target="_blank" for security.</div>
+          <div class="el-type">Inline · Link</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;img&gt;</div>
+          <div class="el-name">Image</div>
+          <div class="el-desc">Embeds an image. Self-closing. Always include alt text and specify width/height to prevent layout shift.</div>
+          <div class="el-type">Inline · Self-closing</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;picture&gt;</div>
+          <div class="el-name">Picture</div>
+          <div class="el-desc">Wraps multiple &lt;source&gt; elements to serve different image formats or sizes for different devices.</div>
+          <div class="el-type">Block · Media</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;video&gt;</div>
+          <div class="el-name">Video</div>
+          <div class="el-desc">Native video player. Avoid autoplay. Always provide fallback text and multiple source formats.</div>
+          <div class="el-type">Block · Media</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;audio&gt;</div>
+          <div class="el-name">Audio</div>
+          <div class="el-desc">Embeds audio content. Supports MP3, OGG, WAV. Use controls attribute to show the player.</div>
+          <div class="el-type">Inline · Media</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;iframe&gt;</div>
+          <div class="el-name">Inline Frame</div>
+          <div class="el-desc">Embeds external content like maps or videos. Always add a title attribute for accessibility. Use sparingly.</div>
+          <div class="el-type">Block · Embed</div>
+        </div>
+      </div>
+      <div class="code-block" style="margin-top:40px;">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+        <pre><span class="c-comment">&lt;!-- Link with security best practice --&gt;</span>
+<span class="c-tag">&lt;a</span> <span class="c-attr">href</span>=<span class="c-val">"https://example.com"</span>
+   <span class="c-attr">target</span>=<span class="c-val">"_blank"</span>
+   <span class="c-attr">rel</span>=<span class="c-val">"noopener noreferrer"</span><span class="c-tag">&gt;</span><span class="c-text">Open link</span><span class="c-tag">&lt;/a&gt;</span>
+
+<span class="c-comment">&lt;!-- Image with alt text and dimensions --&gt;</span>
+<span class="c-tag">&lt;img</span> <span class="c-attr">src</span>=<span class="c-val">"photo.jpg"</span>
+     <span class="c-attr">alt</span>=<span class="c-val">"A mountain landscape at sunset"</span>
+     <span class="c-attr">width</span>=<span class="c-val">"800"</span> <span class="c-attr">height</span>=<span class="c-val">"600"</span><span class="c-tag">&gt;</span>
+
+<span class="c-comment">&lt;!-- Responsive picture element --&gt;</span>
+<span class="c-tag">&lt;picture&gt;</span>
+  <span class="c-tag">&lt;source</span> <span class="c-attr">srcset</span>=<span class="c-val">"photo.webp"</span> <span class="c-attr">type</span>=<span class="c-val">"image/webp"</span><span class="c-tag">&gt;</span>
+  <span class="c-tag">&lt;img</span> <span class="c-attr">src</span>=<span class="c-val">"photo.jpg"</span> <span class="c-attr">alt</span>=<span class="c-val">"Fallback"</span><span class="c-tag">&gt;</span>
+<span class="c-tag">&lt;/picture&gt;</span></pre>
+      </div>
+    </div>
+
+    <!-- FORMS TAB -->
+    <div id="tab-forms" class="tab-panel">
+      <div class="elements-grid">
+        <div class="el-card">
+          <div class="el-tag">&lt;table&gt;</div>
+          <div class="el-name">Table</div>
+          <div class="el-desc">For tabular data only. Use thead, tbody, tfoot, tr, th, td. Always add a caption for accessibility.</div>
+          <div class="el-type">Block · Table</div>
+        </div>
+        <div class="el-card">
+          <div class="el-tag">&lt;details&gt;</div>
+          <div class="el-name">Details</div>
+          <div class="el-desc">Native accordion element. Paired with &lt;summary&gt;, it shows/hides content without any JavaScript needed.</div>
+          <div class="el-type">Block · Interactive</div>
+        </div>
+      </div>
+
+      <div style="margin-top:40px;">
+        <p style="font-size:15px; color:var(--muted); margin-bottom:20px;">Live example — the &lt;details&gt; element in action:</p>
+        <details style="border:1px solid var(--border); padding:20px; background:white; font-family:'DM Sans',sans-serif;">
+          <summary style="cursor:pointer; font-family:'DM Mono',monospace; font-size:14px; color:var(--accent); user-select:none;">▶ What is the difference between &lt;section&gt; and &lt;div&gt;?</summary>
+          <p style="margin-top:16px; font-size:15px; color:var(--muted); line-height:1.7;">&lt;section&gt; is a semantic element that groups <em>related content with a heading</em>. It tells browsers and screen readers that this is a meaningful block. &lt;div&gt; has no semantic meaning at all — it's just a styling wrapper. Always prefer semantic elements when possible.</p>
+        </details>
+        <details style="border:1px solid var(--border); border-top:none; padding:20px; background:white; font-family:'DM Sans',sans-serif;">
+          <summary style="cursor:pointer; font-family:'DM Mono',monospace; font-size:14px; color:var(--accent); user-select:none;">▶ When should I use &lt;strong&gt; vs &lt;b&gt;?</summary>
+          <p style="margin-top:16px; font-size:15px; color:var(--muted); line-height:1.7;">Use &lt;strong&gt; when the text is semantically important — a warning, a key term. Use &lt;b&gt; to draw attention without implying importance (like keywords in a summary). Both look bold visually, but their meaning differs for screen readers and search engines.</p>
+        </details>
+      </div>
+
+      <div class="code-block" style="margin-top:40px;">
+        <button class="copy-btn" onclick="copyCode(this)">COPY</button>
+        <pre><span class="c-comment">&lt;!-- Accessible table --&gt;</span>
+<span class="c-tag">&lt;table&gt;</span>
+  <span class="c-tag">&lt;caption&gt;</span><span class="c-text">Monthly Sales Data</span><span class="c-tag">&lt;/caption&gt;</span>
+  <span class="c-tag">&lt;thead&gt;</span>
+    <span class="c-tag">&lt;tr&gt;</span>
+      <span class="c-tag">&lt;th&gt;</span><span class="c-text">Month</span><span class="c-tag">&lt;/th&gt;&lt;th&gt;</span><span class="c-text">Sales</span><span class="c-tag">&lt;/th&gt;</span>
+    <span class="c-tag">&lt;/tr&gt;</span>
+  <span class="c-tag">&lt;/thead&gt;</span>
+  <span class="c-tag">&lt;tbody&gt;</span>
+    <span class="c-tag">&lt;tr&gt;&lt;td&gt;</span><span class="c-text">January</span><span class="c-tag">&lt;/td&gt;&lt;td&gt;</span><span class="c-text">€ 4,200</span><span class="c-tag">&lt;/td&gt;&lt;/tr&gt;</span>
+  <span class="c-tag">&lt;/tbody&gt;</span>
+<span class="c-tag">&lt;/table&gt;</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">HTML · Lesson 01</div>
+  <div class="footer-note">HTML IS ABOUT CONTENT · CSS IS ABOUT STYLE · © 2025</div>
+</footer>
+
+<script>
+  // TICKER
+  const tags = ['&lt;html&gt;','&lt;head&gt;','&lt;body&gt;','&lt;header&gt;','&lt;nav&gt;','&lt;main&gt;','&lt;section&gt;','&lt;article&gt;','&lt;aside&gt;','&lt;footer&gt;','&lt;h1&gt;–&lt;h6&gt;','&lt;p&gt;','&lt;a&gt;','&lt;img&gt;','&lt;div&gt;','&lt;span&gt;','&lt;strong&gt;','&lt;em&gt;','&lt;ul&gt;','&lt;ol&gt;','&lt;table&gt;','&lt;form&gt;','&lt;video&gt;','&lt;audio&gt;'];
+  const ticker = document.getElementById('ticker');
+  const doubled = [...tags, ...tags];
+  ticker.innerHTML = doubled.map(t => `<span>${t}</span>`).join('');
+
+  // ANATOMY DETAILS
+  const details = {
+    html: { tag: '&lt;html&gt;', desc: 'The root element. Every HTML page is wrapped inside this tag. It tells the browser the document is HTML.', note: 'tip', text: '💡 Always include the <strong>lang</strong> attribute for accessibility — e.g., &lt;html lang="en"&gt;' },
+    head: { tag: '&lt;head&gt;', desc: 'Contains metadata — not visible on screen. This is where you place your title, charset, viewport settings, CSS links, and favicons.', note: 'tip', text: '💡 Elements inside &lt;head&gt; are invisible to users but crucial for SEO and browser rendering.' },
+    body: { tag: '&lt;body&gt;', desc: 'Everything visible on a webpage lives inside &lt;body&gt;. Text, images, videos, forms — all your content goes here.', note: 'warn', text: '⚠️ There should only ever be one &lt;body&gt; element per HTML page.' },
+    header: { tag: '&lt;header&gt;', desc: 'The top of a page or section. Usually consistent across all pages. Contains logo, navigation, and sometimes a hero image.', note: 'warn', text: '⚠️ Don\'t confuse &lt;header&gt; with the &lt;head&gt; element — they are completely different!' },
+    main: { tag: '&lt;main&gt;', desc: 'The primary content area. Should appear only ONCE per page. Everything unique to this page belongs here.', note: 'warn', text: '⚠️ &lt;main&gt; must never be a descendant of &lt;article&gt;, &lt;aside&gt;, &lt;header&gt;, &lt;footer&gt;, or &lt;nav&gt;.' },
+    footer: { tag: '&lt;footer&gt;', desc: 'The bottom of a page or section. Contains copyright, secondary navigation, social links, and contact info.', note: 'tip', text: '💡 You can have multiple footers — one for the page, and one inside each &lt;article&gt; or &lt;section&gt;.' }
+  };
+
+  function showDetail(id) {
+    document.querySelectorAll('.anatomy-tag').forEach(t => t.removeAttribute('data-active'));
+    document.getElementById('tag-' + id).setAttribute('data-active', 'true');
+    const d = details[id];
+    document.getElementById('d-tag').innerHTML = d.tag;
+    document.getElementById('d-desc').textContent = d.desc;
+    const note = document.getElementById('d-note');
+    note.className = d.note;
+    note.innerHTML = d.text;
+  }
+
+  // TABS
+  function switchTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // COPY
+  function copyCode(btn) {
+    const code = btn.nextElementSibling;
+    const text = code.innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = 'COPIED!';
+      setTimeout(() => btn.textContent = 'COPY', 2000);
+    });
+  }
+
+
+</script>
+</body>
+</html>
