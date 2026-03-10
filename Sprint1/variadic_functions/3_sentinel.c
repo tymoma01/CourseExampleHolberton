@@ -28,7 +28,7 @@ int make_style(int first, ...)  // accepts one or more flag arguments
 
     va_start(ap, first);
 
-    while (opt != OPT_END) // keep going until the sentinel is reached
+    while (opt != 0) // keep going until the sentinel is reached
     {
         mask |= opt;
         opt = va_arg(ap, int); // fetch next flag and advance cursor

@@ -1,0 +1,52 @@
+/* 1. Element Selector: Targets every <body> and <p> */
+body {
+    background-color: #f4f7f6;
+    font-family: 'Georgia', serif; /* A classic serif font for Lorem Ipsum */
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+p {
+    line-height: 1.6; /* Adds space between lines for readability */
+    margin-bottom: 15px;
+}
+
+
+/* 2. ID Selector: Targets only the specific header title */
+#main-header-title {
+    color: #2c3e50;
+    text-align: center;
+    border-bottom: 2px solid #2c3e50;
+    padding-bottom: 10px;
+}
+
+/* 3. Class Selector: Targets the two cards */
+.card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px 0;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+}
+
+/* 4. Class Selector: Targets the notice box */
+.notice-box {
+    background-color: #e7f3fe;
+    border-left: 6px solid #2196F3;
+    padding: 15px;
+    font-style: italic;
+}
+
+/* Descendant Selector: Styles the link inside the nav */
+nav {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #2196F3;
+    font-weight: bold;
+}

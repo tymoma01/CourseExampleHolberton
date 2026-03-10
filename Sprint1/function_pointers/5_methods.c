@@ -1,10 +1,15 @@
 #include <stdio.h>
 
 struct meter {
-    int value;
+    int value;    
     void (*add)(struct meter*, int); // function pointer stored as a field 
     void (*show)(const struct meter*); // — acts like a method
 };
+
+// function(arg_a, arg_b);
+
+// structure_name.method_name(arg_a, arg_b);
+
 
 void m_add(struct meter* m, int d){
     // guard against NULL pointer

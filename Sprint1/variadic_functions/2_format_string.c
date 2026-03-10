@@ -10,7 +10,7 @@
 
 // IMPORTANT — float promotion rule:
 //   When a float is passed to a variadic function it is automatically
-//   promoted to double.  Always use va_arg(ap, double), never float.
+//   promoted to double. Always use va_arg(ap, double), never float.
 
 
 void print_args(const char *fmt, ...)
