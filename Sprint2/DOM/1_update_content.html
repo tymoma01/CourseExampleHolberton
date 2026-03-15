@@ -5,10 +5,16 @@
     <button id="update-btn">Change Content</button>
 
     <script>
+      // The DOM (Document Object Model) is the browser's representation of your HTML as a tree of objects.
+      // Every tag becomes a node you can access, modify, add or remove with JavaScript.
+      // That's how pages become interactive — JS talks to the DOM, the DOM updates what you see.
+
+      // querySelector lets you grab any element using a CSS selector
       const p = document.querySelector('#text');
       const btn = document.querySelector('#update-btn');
 
       btn.addEventListener('click', () => {
+        // textContent replaces whatever text is inside the element
         p.textContent = 'This paragraph has been updated!';
       });
     </script>

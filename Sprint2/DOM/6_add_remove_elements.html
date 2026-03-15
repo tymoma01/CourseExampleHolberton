@@ -15,9 +15,10 @@
 
       addBtn.addEventListener('click', () => {
         count++;
+        // createElement creates the node but doesn't add it to the page yet
         const li = document.createElement('li');
         li.textContent = `Item ${count}`;
-        list.appendChild(li);
+        list.appendChild(li); // appendChild is what actually inserts it into the DOM
       });
 
       remBtn.addEventListener('click', () => {

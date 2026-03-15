@@ -8,6 +8,7 @@
       const input = document.querySelector('#input');
       const output = document.querySelector('#output');
 
+      // the 'input' event fires on every keystroke, unlike 'change' which only fires on blur
       input.addEventListener('input', () => {
         output.textContent = `You typed: ${input.value}`;
       });

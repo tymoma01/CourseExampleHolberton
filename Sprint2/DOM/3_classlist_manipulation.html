@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>classList Manipulation</title>
+    <style>
+      .box {
+        width: 150px;
+        height: 150px;
+        background-color: lightgray;
+        font-family: sans-serif;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .highlight {
+        background-color: #facc15;
+        font-weight: bold;
+      }
+
+      .rounded {
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box" id="box">Hello!</div>
+    <br />
+    <button id="toggle-highlight">Toggle Highlight</button>
+    <button id="toggle-shape">Toggle Shape</button>
+
+    <script>
+      const box = document.getElementById('box');
+
+      // classList.toggle adds the class if absent, removes it if present
+      // this is cleaner than touching element.style directly for anything beyond a quick change
+      document.getElementById('toggle-highlight').addEventListener('click', () => {
+        box.classList.toggle('highlight');
+      });
+
+      document.getElementById('toggle-shape').addEventListener('click', () => {
+        box.classList.toggle('rounded');
+      });
+    </script>
+  </body>
+</html>

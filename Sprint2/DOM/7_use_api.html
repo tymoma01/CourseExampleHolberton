@@ -5,8 +5,10 @@
     <script>
       let correctAnswer = '';
 
+      // DOMContentLoaded fires when the HTML is fully parsed — safer than putting scripts at the top
       document.addEventListener('DOMContentLoaded', () => {
 
+        // fetch returns a Promise; we chain .then() to handle the response once it arrives
         fetch('https://hellosalut.stefanbohacek.com/?lang=fr')
           .then(response => response.json())
           .then(data => {

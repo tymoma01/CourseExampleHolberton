@@ -12,10 +12,11 @@
     <button id="color-btn">Turn Purple</button>
 
     <script>
+      // both querySelector and getElementById work — getElementById is slightly faster for IDs
       const title = document.querySelector('#main-title');
       const button = document.getElementById('color-btn');
 
-      // Modify style via JS
+      // element.style gives you direct access to inline CSS properties
       button.addEventListener('click', () => {
         title.style.color = '#9333EA';
       });

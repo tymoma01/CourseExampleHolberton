@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Form Handling</title>
+    <style>
+      body { font-family: sans-serif; }
+      .error { color: red; }
+      .success { color: green; }
+    </style>
+  </head>
+  <body>
+    <form id="signup-form">
+      <label for="username">Username:</label><br />
+      <input type="text" id="username" placeholder="Enter username" /><br /><br />
+
+      <label for="email">Email:</label><br />
+      <input type="email" id="email" placeholder="Enter email" /><br /><br />
+
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+      const form = document.getElementById('signup-form');
+      const message = document.getElementById('message');
+
+      form.addEventListener('submit', (event) => {
+        // Prevent the page from reloading (default form behaviour)
+        event.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        if (!username || !email) {
+          message.textContent = 'Please fill in all fields.';
+          message.className = 'error';
+          return;
+        }
+
+        message.textContent = `Welcome, ${username}! A confirmation was sent to ${email}.`;
+        message.className = 'success';
+        form.reset(); // clears all fields after a successful submission
+      });
+    </script>
+  </body>
+</html>
