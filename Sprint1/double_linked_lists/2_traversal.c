@@ -42,9 +42,17 @@ int main(void)
     dlist_t *b = malloc(sizeof(dlist_t));
     dlist_t *c = malloc(sizeof(dlist_t));
 
-    a->n = 1; a->prev = NULL; a->next = b;
-    b->n = 2; b->prev = a;   b->next = c;
-    c->n = 3; c->prev = b;   c->next = NULL;
+    a->n = 1;
+    a->prev = NULL;
+    a->next = b;
+
+    b->n = 2;
+    b->prev = a;
+    b->next = c;
+
+    c->n = 3;
+    c->prev = b;
+    c->next = NULL;
 
     printf("Forward:  ");
     print_forward(a);

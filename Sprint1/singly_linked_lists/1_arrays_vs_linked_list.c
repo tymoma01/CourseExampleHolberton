@@ -26,7 +26,7 @@ int main(void)
     head = new;   
     // -> fast insertion at the front
 
-    /* Sequential access */
+    // Sequential access
     printf("First contact: %s\n", head->name);
 
     return 0;

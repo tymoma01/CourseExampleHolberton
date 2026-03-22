@@ -41,7 +41,7 @@ int main(void)
 {
     node_t *head = NULL;
 
-    /* Nodes are stored in insertion order (unlike head insertion) */
+    // Nodes are stored in insertion order (unlike head insertion)
     add_tail(&head, "first");
     add_tail(&head, "second");
     add_tail(&head, "third");

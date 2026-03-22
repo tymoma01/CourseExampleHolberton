@@ -28,6 +28,7 @@ int main(void)
     a->n = 10;
     a->prev = NULL;
     a->next = b;
+    
     b->n = 20;
     b->prev = a;
     b->next = NULL;
