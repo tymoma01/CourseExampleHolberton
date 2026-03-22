@@ -16,7 +16,7 @@ int main(int ac, char **av)
 		exit(1);
 	}
 
-	/* Open the file in read-only mode */
+	// Open the file in read-only mode
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 	{
@@ -25,7 +25,7 @@ int main(int ac, char **av)
 		exit(1);
 	}
 
-	/* Read up to 32 bytes and write them to STDOUT */
+	// Read up to 32 bytes and write them to STDOUT
 	n_read = read(fd, buffer, sizeof(buffer));
 	if (n_read == -1)
 	{
@@ -37,7 +37,7 @@ int main(int ac, char **av)
 
 	write(STDOUT_FILENO, buffer, n_read);
 
-	/* Always close the file descriptor when done */
+	// Always close the file descriptor when done
 	if (close(fd) == -1)
 	{
 		const char *msg = "Error: cannot close file descriptor\n";

@@ -1,7 +1,7 @@
-#include <fcntl.h>      /* open */
-#include <unistd.h>     /* write, close */
-#include <sys/stat.h>   /* permission macros */
-#include <string.h>     /* strlen */
+#include <fcntl.h>      // open
+#include <unistd.h>     // write, close
+#include <sys/stat.h>   // permission macros
+#include <string.h>     // strlen
 
 int main(void)
 {
