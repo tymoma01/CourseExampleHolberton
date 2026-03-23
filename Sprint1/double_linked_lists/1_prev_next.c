@@ -24,7 +24,7 @@ int main(void)
     printf("Forward: %s -> %s\n", track1->song, track1->next->song);
 
     // Traverse backward
-    printf("Backward: %s -> %s\n", track2->song, track1->song);
+    printf("Backward: %s -> %s\n", track2->song, track2->prev->song);
 
     free(track1);
     free(track2);

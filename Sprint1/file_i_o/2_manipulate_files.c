@@ -7,7 +7,7 @@ int main(int ac, char **av)
 {
 	int fd;
 	ssize_t n_read;
-	char buffer[32];
+	char buffer[48];
 
 	if (ac != 2)
 	{
@@ -16,7 +16,7 @@ int main(int ac, char **av)
 		exit(1);
 	}
 
-	// Open the file in read-only mode
+	// Open the file in read-only mode / write / append
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 	{
@@ -25,7 +25,7 @@ int main(int ac, char **av)
 		exit(1);
 	}
 
-	// Read up to 32 bytes and write them to STDOUT
+	// Read up to x bytes and write them to STDOUT
 	n_read = read(fd, buffer, sizeof(buffer));
 	if (n_read == -1)
 	{

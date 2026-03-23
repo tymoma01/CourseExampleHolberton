@@ -18,6 +18,11 @@ void free_l_list(node_t *head)
         free(head);
         head = tmp;
     }
+    // Alice -> Bob -> Charlie
+    // tmp = Bob
+    // free Alice
+    // free node contianing Alice
+    // head = Bob
 }
 
 int main(void)

@@ -12,6 +12,8 @@ int main(void)
 
 	fd = open(filename,
 		  O_WRONLY | O_CREAT | O_TRUNC, // O_APPEND / O_TRUNC
+		  // O_TRUNC -> override
+		  // O_APPEND -> append, add at the end.
 		  0644);
 	if (fd == -1)
 	{

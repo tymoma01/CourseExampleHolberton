@@ -18,13 +18,15 @@ int main(void)
 
 
     // LINKED LIST
-    contact_t *head = NULL;                                
-    contact_t *new = malloc(sizeof(contact_t));  
+    contact_t *head = NULL;
+    contact_t *new = malloc(sizeof(contact_t));
 
     new->name = "Alice";
-    new->next = head; 
-    head = new;   
+    new->next = NULL;
+    head = new;
     // -> fast insertion at the front
+
+    // Node->name = Alice -> NULL
 
     // Sequential access
     printf("First contact: %s\n", head->name);

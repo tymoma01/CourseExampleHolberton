@@ -50,6 +50,7 @@ int main(void)
     push_back(&tabs, "Holberton");
 
     printf("Front: %s\n", tabs->tab);
+    printf("Second: %s\n", tabs->next->tab);
     printf("Back: %s\n", tabs->next->next->tab);
 
     return 0;

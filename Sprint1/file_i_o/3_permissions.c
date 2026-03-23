@@ -13,6 +13,7 @@ int main(void)
 	fd = open(filename,
 		  O_WRONLY | O_CREAT | O_TRUNC,
 		  S_IRUSR | S_IWUSR);
+		  
 	if (fd == -1)
 	{
 		const char *msg = "Error: cannot create file\n";
