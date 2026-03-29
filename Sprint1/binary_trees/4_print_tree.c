@@ -2,6 +2,19 @@
 #include <stdlib.h>
 #include "binary_trees.h"
 
+binary_tree_t *binary_tree_node(binary_tree_t *parent, int value)
+{
+    binary_tree_t *node = malloc(sizeof(binary_tree_t));
+
+    if (node == NULL)
+        return (NULL);
+    node->n = value;
+    node->parent = parent;
+    node->left = NULL;
+    node->right = NULL;
+    return (node);
+}
+
 int max(int a, int b) { return (a > b ? a : b); }
 
 int tree_height(const binary_tree_t *tree)
@@ -11,7 +24,7 @@ int tree_height(const binary_tree_t *tree)
     return 1 + max(tree_height(tree->left), tree_height(tree->right));
 }
 
-/* Print spaces */
+// Print spaces
 void print_spaces(int count)
 {
     int i;
@@ -19,7 +32,7 @@ void print_spaces(int count)
         printf(" ");
 }
 
-/* Calculate power of 2 */
+// Calculate power of 2
 int power_of_2(int exp)
 {
     int result = 1;
@@ -30,7 +43,7 @@ int power_of_2(int exp)
     return result;
 }
 
-/* Print a level of the tree */
+// Print a level of the tree
 void print_level_helper(const binary_tree_t *tree, int level, int offset, int width)
 {
     int half;
@@ -63,7 +76,7 @@ void print_level_helper(const binary_tree_t *tree, int level, int offset, int wi
     }
 }
 
-/* Print branches for a level */
+// Print branches for a level
 void print_branches_helper(const binary_tree_t *tree, int level, int offset, int width)
 {
     int half, quarter;
@@ -108,7 +121,7 @@ void print_branches_helper(const binary_tree_t *tree, int level, int offset, int
     }
 }
 
-/* Main pretty-printer */
+// Main pretty-printer
 void binary_tree_print_pretty(const binary_tree_t *tree)
 {
     int h, level, width, offset;
@@ -135,3 +148,35 @@ void binary_tree_print_pretty(const binary_tree_t *tree)
         }
     }
 }
+
+#ifndef NO_MAIN
+int main(void)
+{
+    binary_tree_t *root;
+
+    /*
+     *         (10)
+     *        /    \
+     *      (5)   (20)
+     *      / \     \
+     *    (2) (7)  (30)
+     */
+    root = binary_tree_node(NULL, 10);
+    root->left = binary_tree_node(root, 5);
+    root->right = binary_tree_node(root, 20);
+    root->left->left = binary_tree_node(root->left, 2);
+    root->left->right = binary_tree_node(root->left, 7);
+    root->right->right = binary_tree_node(root->right, 30);
+
+    binary_tree_print_pretty(root);
+
+    free(root->left->left);
+    free(root->left->right);
+    free(root->left);
+    free(root->right->right);
+    free(root->right);
+    free(root);
+
+    return (0);
+}
+#endif /* NO_MAIN */

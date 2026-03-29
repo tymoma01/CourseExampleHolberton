@@ -5,26 +5,21 @@
 
 unsigned long int hash_djb2(const unsigned char *str)
 {
-	unsigned long int hash = 5381; /* magic seed chosen by djb2's author for good distribution */
+	unsigned long int hash = 5381; // magic seed chosen by djb2's author for good distribution
 	int c;
 
-	while ((c = *str++)) /* read one character at a time until '\0' */
-		hash = ((hash << 5) + hash) + c; /* hash * 33 + c  (fast multiply via bit-shift) */
+	while ((c = *str++)) // read one character at a time until '\0'
+		hash = ((hash << 5) + hash) + c; // hash * 33 + c  (fast multiply via bit-shift)
 
 	return (hash);
 }
 
 unsigned long int key_index(const unsigned char *key, unsigned long int size)
 {
-	return (hash_djb2(key) % size); /* modulo reduces the hash to a valid array index */
+	return (hash_djb2(key) % size); // modulo reduces the hash to a valid array index
 }
 
-/**
- * hash_table_create - creates a hash table
- * @size: size of the array
- *
- * Return: pointer to new table, or NULL on failure
- */
+
 hash_table_t *hash_table_create(unsigned long int size)
 {
 	hash_table_t *ht;
@@ -52,13 +47,6 @@ hash_table_t *hash_table_create(unsigned long int size)
 	return (ht);
 }
 
-/**
- * create_node - creates a new hash node
- * @key: key string (will be duplicated)
- * @value: value string (will be duplicated)
- *
- * Return: pointer to new node, or NULL on failure
- */
 hash_node_t *create_node(const char *key, const char *value)
 {
 	hash_node_t *node;
@@ -83,14 +71,7 @@ hash_node_t *create_node(const char *key, const char *value)
 	return (node);
 }
 
-/**
- * hash_table_set - adds or updates an element in the hash table
- * @ht: hash table
- * @key: key (cannot be empty)
- * @value: value to store (duplicated)
- *
- * Return: 1 on success, 0 on failure
- */
+
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
 	unsigned long int idx;
@@ -104,7 +85,7 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 	idx = key_index((const unsigned char *)key, ht->size);
 	tmp = ht->array[idx];
 
-	/* Update value if key already exists in the chain */
+	// Update value if key already exists in the chain
 	while (tmp != NULL)
 	{
 		if (strcmp(tmp->key, key) == 0)
@@ -122,23 +103,20 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		tmp = tmp->next;
 	}
 
-	/* Key not found: add a new node at the beginning (chaining) */
+	// Key not found: add a new node at the beginning (chaining)
 	node = create_node(key, value);
 	if (node == NULL)
     {
 		return (0);
     }
 
-	node->next = ht->array[idx]; /* new node points to the current head of the chain */
-	ht->array[idx] = node;       /* new node becomes the new head (prepend = O(1)) */
+	node->next = ht->array[idx]; // new node points to the current head of the chain
+	ht->array[idx] = node;       // new node becomes the new head (prepend = O(1))
 
 	return (1);
 }
 
-/**
- * hash_table_print - prints the hash table (shows chains)
- * @ht: hash table
- */
+
 void hash_table_print(const hash_table_t *ht)
 {
 	unsigned long int i;
@@ -160,10 +138,6 @@ void hash_table_print(const hash_table_t *ht)
 	}
 }
 
-/**
- * hash_table_delete - frees the whole hash table
- * @ht: hash table
- */
 void hash_table_delete(hash_table_t *ht)
 {
 	unsigned long int i;
@@ -189,11 +163,7 @@ void hash_table_delete(hash_table_t *ht)
 	free(ht);
 }
 
-/**
- * main - demo: insert keys and show collisions via chaining
- *
- * Return: Always 0.
- */
+
 int main(void)
 {
 	hash_table_t *ht;
@@ -206,14 +176,14 @@ int main(void)
 		return (1);
 	}
 
-	hash_table_set(ht, "Andrew", "0494110150");
-	hash_table_set(ht, "Joleen", "0494118247");
-	hash_table_set(ht, "Uliana", "0494136452");
-	hash_table_set(ht, "Lachie", "0494235151");
-	hash_table_set(ht, "Pav", "0494135784");
-    hash_table_set(ht, "Max", "0494112756");
-    hash_table_set(ht, "Shan", "0494135784");
-    hash_table_set(ht, "Liani", "0494135781");
+	hash_table_set(ht, "venghour", "0494110150");
+	hash_table_set(ht, "lachie", "0494118247");
+	hash_table_set(ht, "sam", "0494136452");
+	hash_table_set(ht, "sebastion", "0494235151");
+	hash_table_set(ht, "shams", "0494135784");
+    hash_table_set(ht, "joshua", "0494112756");
+    hash_table_set(ht, "Joe", "0494135784");
+    hash_table_set(ht, "Heidi", "0494135781");
     hash_table_set(ht, "John Smith", "0494135712");
 
 	printf("Hash table with size = %lu (expect collisions):\n", size);

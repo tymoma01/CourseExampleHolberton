@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include "binary_trees.h"
 
-/* A leaf has no children — it is a “dead end” in the tree. */
+// gcc 6_tree_properties.c 2_node.c
+
+// A leaf has no children — it is a “dead end” in the tree
 int binary_tree_is_leaf(const binary_tree_t *node)
 {
 	if (node == NULL)

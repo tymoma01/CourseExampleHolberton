@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include "binary_trees.h"
 
+// gcc 7_bst.c print_tree.o
+
 /* Insert respecting BST rule:
  * left subtree < node, right subtree > node
  * (no duplicates for simplicity)
@@ -15,25 +17,25 @@
  */
 binary_tree_t *bst_insert(binary_tree_t **root, int value)
 {
-	binary_tree_t *parent = NULL;   // will track the last non-NULL node we visited
+	binary_tree_t *parent = NULL; // will track the last non-NULL node we visited
 	binary_tree_t *current = *root; // starts at the root and walks down
 	binary_tree_t *new_node;
 
 	while (current != NULL)
 	{
-		parent = current;           // remember where we are before stepping down
+		parent = current; // remember where we are before stepping down
 		if (value < current->n)
         {
-            current = current->left;  // go left: value belongs in left subtree
+            current = current->left; // go left: value belongs in left subtree
         }
 		else if (value > current->n)
         {
             current = current->right; // go right: value belongs in right subtree
         }
 		else
-			return (current);         // duplicate: value already in tree, do nothing
+			return (current); // duplicate: value already in tree, do nothing
 	}
-	/* current == NULL: we found the empty slot where the new node goes */
+	// current == NULL: we found the empty slot where the new node goes
 
 	new_node = binary_tree_node(parent, value);
 	if (new_node == NULL)
@@ -43,30 +45,30 @@ binary_tree_t *bst_insert(binary_tree_t **root, int value)
 
 	if (parent == NULL)
     {
-        *root = new_node;             // tree was empty — new node becomes the root
+        *root = new_node; // tree was empty — new node becomes the root
     }
 	else if (value < parent->n)
     {
-        parent->left = new_node;      // attach as left child
+        parent->left = new_node; // attach as left child
     }
 	else
     {
-        parent->right = new_node;     // attach as right child
+        parent->right = new_node; // attach as right child
     }
 	return (new_node);
 }
 
-/* Search is simpler: just follow the BST rule until we find the value or fall off. */
+// Search is simpler: just follow the BST rule until we find the value or fall off
 binary_tree_t *bst_search(binary_tree_t *root, int value)
 {
 	while (root != NULL)
 	{
 		if (value == root->n)
-			return (root);          // found it
+			return (root); // found it
 		if (value < root->n)
-			root = root->left;      // too big — go left
+			root = root->left; // too big — go left
 		else
-			root = root->right;     // too small — go right
+			root = root->right; // too small — go right
 	}
 	return (NULL); // fell off the tree: value not present
 }

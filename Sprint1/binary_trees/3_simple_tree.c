@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "binary_trees.h"
 
-/* Simple inorder print to visualize */
+// Simple inorder print to visualize
 void inorder(const binary_tree_t *tree)
 {
 	if (tree == NULL)

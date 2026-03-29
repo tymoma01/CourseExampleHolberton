@@ -1,12 +1,6 @@
 #include <stdio.h>
 #include "hash_tables.h"
 
-/**
- * bad_hash - very bad hash function: uses only first character
- * @str: key
- *
- * Return: hash value (not reduced to table size)
- */
 unsigned long int bad_hash(const unsigned char *str)
 {
 	if (str == NULL || str[0] == '\0')
@@ -15,42 +9,25 @@ unsigned long int bad_hash(const unsigned char *str)
 	return ((unsigned long int)str[0]);
 }
 
-/**
- * hash_djb2 - good string hash function (classic djb2)
- * @str: key
- *
- * Return: hash value (not reduced to table size)
- */
 unsigned long int hash_djb2(const unsigned char *str)
 {
-	unsigned long int hash = 5381; /* magic seed chosen by djb2's author for good distribution */
+	unsigned long int hash = 5381; // magic seed chosen by djb2's author for good distribution
 	int c;
 
-	while ((c = *str++)) /* read one character at a time until '\0' */
+	while ((c = *str++)) // read one character at a time until '\0'
 	{
-		hash = ((hash << 5) + hash) + c; /* hash * 33 + c  (fast multiply via bit-shift) */
+		hash = ((hash << 5) + hash) + c; // hash * 33 + c  (fast multiply via bit-shift)
 	}
 
 	return (hash);
 }
 
-/**
- * key_index - gives the index of a key in an array of size @size
- * @key: key
- * @size: size of the array of the hash table
- *
- * Return: the index at which the key/value pair should be stored
- */
 unsigned long int key_index(const unsigned char *key, unsigned long int size)
 {
-	return (hash_djb2(key) % size); /* modulo reduces the hash to a valid array index */
+	return (hash_djb2(key) % size); // modulo reduces the hash to a valid array index
 }
 
-/**
- * print_hashes - prints bad and good hashes for a list of keys
- * @keys: NULL-terminated array of C strings
- * @size: size of the hash table
- */
+
 void print_hashes(const char **keys, unsigned long int size)
 {
 	int i;
@@ -69,11 +46,7 @@ void print_hashes(const char **keys, unsigned long int size)
 	}
 }
 
-/**
- * main - demo of hash functions and indices
- *
- * Return: Always 0.
- */
+
 int main(void)
 {
 	const char *keys[] = {

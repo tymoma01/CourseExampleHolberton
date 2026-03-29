@@ -6,12 +6,12 @@
  * Useful for copying or serializing a tree. */
 void preorder(const binary_tree_t *tree)
 {
-	if (tree == NULL)       // base case: empty subtree, nothing to do
+	if (tree == NULL) // base case: empty subtree, nothing to do
 		return;
 
 	printf("%d ", tree->n); // VISIT first
-	preorder(tree->left);   // then recurse left
-	preorder(tree->right);  // then recurse right
+	preorder(tree->left); // then recurse left
+	preorder(tree->right); // then recurse right
 }
 
 /* INORDER: left → visit → right
@@ -22,9 +22,9 @@ void inorder(const binary_tree_t *tree)
 	if (tree == NULL)
 		return;
 
-	inorder(tree->left);    // recurse left first
+	inorder(tree->left); // recurse left first
 	printf("%d ", tree->n); // VISIT in the middle
-	inorder(tree->right);   // recurse right last
+	inorder(tree->right); // recurse right last
 }
 
 /* POSTORDER: left → right → visit
@@ -35,7 +35,7 @@ void postorder(const binary_tree_t *tree)
 	if (tree == NULL)
 		return;
 
-	postorder(tree->left);  // recurse left
+	postorder(tree->left); // recurse left
 	postorder(tree->right); // recurse right
 	printf("%d ", tree->n); // VISIT last
 }
