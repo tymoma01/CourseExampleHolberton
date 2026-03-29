@@ -5,18 +5,18 @@
 
 unsigned long int hash_djb2(const unsigned char *str)
 {
-	unsigned long int hash = 5381;
+	unsigned long int hash = 5381; /* magic seed chosen by djb2's author for good distribution */
 	int c;
 
-	while ((c = *str++))
-		hash = ((hash << 5) + hash) + c;
+	while ((c = *str++)) /* read one character at a time until '\0' */
+		hash = ((hash << 5) + hash) + c; /* hash * 33 + c  (fast multiply via bit-shift) */
 
 	return (hash);
 }
 
 unsigned long int key_index(const unsigned char *key, unsigned long int size)
 {
-	return (hash_djb2(key) % size);
+	return (hash_djb2(key) % size); /* modulo reduces the hash to a valid array index */
 }
 
 /**
@@ -129,8 +129,8 @@ int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 		return (0);
     }
 
-	node->next = ht->array[idx];
-	ht->array[idx] = node;
+	node->next = ht->array[idx]; /* new node points to the current head of the chain */
+	ht->array[idx] = node;       /* new node becomes the new head (prepend = O(1)) */
 
 	return (1);
 }
@@ -177,11 +177,11 @@ void hash_table_delete(hash_table_t *ht)
 		node = ht->array[i];
 		while (node != NULL)
 		{
-			tmp = node->next;
+			tmp = node->next; /* save next before freeing current node */
 			free(node->key);
 			free(node->value);
 			free(node);
-			node = tmp;
+			node = tmp; /* advance to the saved next node */
 		}
 	}
 

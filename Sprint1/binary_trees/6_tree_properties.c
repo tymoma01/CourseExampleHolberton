@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "binary_trees.h"
 
+/* A leaf has no children — it is a “dead end” in the tree. */
 int binary_tree_is_leaf(const binary_tree_t *node)
 {
 	if (node == NULL)
@@ -8,26 +9,32 @@ int binary_tree_is_leaf(const binary_tree_t *node)
 	return (node->left == NULL && node->right == NULL);
 }
 
+/* Size = total number of nodes in the tree.
+ * Idea: the size of a tree is 1 (this node) + size of left subtree + size of right subtree.
+ * The recursion bottoms out when it hits a NULL (empty subtree → 0 nodes). */
 size_t binary_tree_size(const binary_tree_t *tree)
 {
 	if (tree == NULL)
 		return (0);
 
-	return (binary_tree_size(tree->left) +
-		binary_tree_size(tree->right) + 1);
+	return (binary_tree_size(tree->left) +  // count all nodes on the left
+		binary_tree_size(tree->right) + 1); // count all nodes on the right, +1 for this node
 }
 
-/* height in “edges”, so a single node has height 0, NULL = -1 */
+/* Height = number of edges on the longest path from this node down to a leaf.
+ * A single node has height 0.  A NULL pointer returns -1 so that the +1
+ * below brings a leaf back to 0 correctly. */
 size_t binary_tree_height(const binary_tree_t *tree)
 {
 	size_t left_h, right_h;
 
 	if (tree == NULL)
-		return ((size_t)-1);
+		return ((size_t)-1); // sentinel: -1 so that leaf height works out to 0
 
 	left_h = binary_tree_height(tree->left);
 	right_h = binary_tree_height(tree->right);
 
+	/* Take the taller subtree, then add 1 for the edge connecting this node to it. */
 	return ((left_h > right_h ? left_h : right_h) + 1);
 }
 

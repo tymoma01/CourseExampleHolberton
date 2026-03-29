@@ -5,62 +5,70 @@
 /* Insert respecting BST rule:
  * left subtree < node, right subtree > node
  * (no duplicates for simplicity)
+ *
+ * We use TWO pointers that walk down together:
+ *   current — the node we are examining right now
+ *   parent  — the node just above current (one step behind)
+ *
+ * When current falls off the tree (NULL) we have found the insertion spot,
+ * and parent is the node that the new node should be attached to.
  */
 binary_tree_t *bst_insert(binary_tree_t **root, int value)
 {
-	binary_tree_t *parent = NULL;
-	binary_tree_t *current = *root;
+	binary_tree_t *parent = NULL;   // will track the last non-NULL node we visited
+	binary_tree_t *current = *root; // starts at the root and walks down
 	binary_tree_t *new_node;
 
 	while (current != NULL)
 	{
-		parent = current;
+		parent = current;           // remember where we are before stepping down
 		if (value < current->n)
         {
-            current = current->left;
+            current = current->left;  // go left: value belongs in left subtree
         }
 		else if (value > current->n)
         {
-            current = current->right;
+            current = current->right; // go right: value belongs in right subtree
         }
 		else
-			return (current);
+			return (current);         // duplicate: value already in tree, do nothing
 	}
+	/* current == NULL: we found the empty slot where the new node goes */
 
 	new_node = binary_tree_node(parent, value);
 	if (new_node == NULL)
     {
         return (NULL);
     }
-	
 
 	if (parent == NULL)
     {
-        *root = new_node;
+        *root = new_node;             // tree was empty — new node becomes the root
     }
 	else if (value < parent->n)
     {
-        parent->left = new_node;
+        parent->left = new_node;      // attach as left child
     }
 	else
     {
-        parent->right = new_node;
+        parent->right = new_node;     // attach as right child
     }
 	return (new_node);
 }
 
+/* Search is simpler: just follow the BST rule until we find the value or fall off. */
 binary_tree_t *bst_search(binary_tree_t *root, int value)
 {
 	while (root != NULL)
 	{
 		if (value == root->n)
-			return (root);
+			return (root);          // found it
 		if (value < root->n)
-			root = root->left;
+			root = root->left;      // too big — go left
 		else
-			root = root->right;
+			root = root->right;     // too small — go right
 	}
-	return (NULL);
+	return (NULL); // fell off the tree: value not present
 }
 
 void inorder(const binary_tree_t *tree)

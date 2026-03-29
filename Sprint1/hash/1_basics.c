@@ -23,12 +23,12 @@ unsigned long int bad_hash(const unsigned char *str)
  */
 unsigned long int hash_djb2(const unsigned char *str)
 {
-	unsigned long int hash = 5381;
+	unsigned long int hash = 5381; /* magic seed chosen by djb2's author for good distribution */
 	int c;
 
-	while ((c = *str++))
+	while ((c = *str++)) /* read one character at a time until '\0' */
 	{
-		hash = ((hash << 5) + hash) + c;
+		hash = ((hash << 5) + hash) + c; /* hash * 33 + c  (fast multiply via bit-shift) */
 	}
 
 	return (hash);
@@ -43,7 +43,7 @@ unsigned long int hash_djb2(const unsigned char *str)
  */
 unsigned long int key_index(const unsigned char *key, unsigned long int size)
 {
-	return (hash_djb2(key) % size);
+	return (hash_djb2(key) % size); /* modulo reduces the hash to a valid array index */
 }
 
 /**
